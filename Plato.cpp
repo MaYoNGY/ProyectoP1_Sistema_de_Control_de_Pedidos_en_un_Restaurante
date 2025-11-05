@@ -8,16 +8,16 @@ Plato::Plato(){
     precio = 0.0;
     categoria = "";
 	cantidad = 0;
-    disponible = true;
+    disponible = (cantidad > 0);
 }
 
-Plato::Plato(NombrePlato nom, CodigoPlato co, PrecioPlato pre, CategoriaPlato cat, CantidadPlatos can, PlatoDisponible dis){
+Plato::Plato(NombrePlato nom, CodigoPlato co, PrecioPlato pre, CategoriaPlato cat, CantidadPlatos can){
 	nombre = nom;
 	codigo = co;
 	precio = pre;
 	categoria = cat;
 	cantidad = can;
-	disponible = dis;
+	disponible = (can > 0);
 }
 
 NombrePlato Plato::getNombre(){
@@ -66,6 +66,9 @@ CantidadPlatos Plato::getCantidad(){
 
 void Plato::setCantidad(CantidadPlatos cant){
 	cantidad = cant;
+	if(cantidad <= 0){
+		disponible = false;
+	}
 }
 
 void Plato::mostrarPlato(){

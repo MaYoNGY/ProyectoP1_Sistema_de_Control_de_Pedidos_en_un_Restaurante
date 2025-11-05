@@ -25,7 +25,7 @@ class Plato{
 		
 		Plato();
 		
-		Plato(NombrePlato nom, CodigoPlato co, PrecioPlato pre, CategoriaPlato cat, CantidadPlatos can, PlatoDisponible dis = true);
+		Plato(NombrePlato nom, CodigoPlato co, PrecioPlato pre, CategoriaPlato cat, CantidadPlatos can);
 				
 		NombrePlato getNombre();
 		void setNombre(NombrePlato n);

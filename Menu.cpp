@@ -14,7 +14,7 @@ Menu::~Menu() {
     }
 }
 
-void Menu::registrarPlato(NombrePlato nombre, CodigoPlato codigo, PrecioPlato precio, CategoriaPlato categoria, CantidadPlatos cantidad, PlatoDisponible disponible) {
+void Menu::registrarPlato(NombrePlato nombre, CodigoPlato codigo, PrecioPlato precio, CategoriaPlato categoria, CantidadPlatos cantidad) {
     
     NodoSimple* actual = cabeza;
     while(actual){
@@ -25,7 +25,7 @@ void Menu::registrarPlato(NombrePlato nombre, CodigoPlato codigo, PrecioPlato pr
             cout << "Cuantos platos desea registrar?: ";
 	        cin >> cantidad;
 
-            Plato adicional(nombre, actual->dato.getCodigo(), actual->dato.getPrecio(), actual->dato.getCategoria(), actual->dato.getCantidad() + cantidad, actual->dato.getDisponible());
+            Plato adicional(nombre, actual->dato.getCodigo(), actual->dato.getPrecio(), actual->dato.getCategoria(), actual->dato.getCantidad() + cantidad);
             actual->dato = adicional;
             cout << "Cantidad actualizada" << endl;
             return;
@@ -47,7 +47,7 @@ void Menu::registrarPlato(NombrePlato nombre, CodigoPlato codigo, PrecioPlato pr
     cout << "Cuantos platos desea registrar?: ";
     cin >> cantidad;
 
-    Plato p(nombre, codigo, precio, categoria, cantidad, disponible);
+    Plato p(nombre, codigo, precio, categoria, cantidad);
     NodoSimple* nuevo = new NodoSimple(p);
     nuevo->siguiente = cabeza;
     cabeza = nuevo;
@@ -85,21 +85,26 @@ Plato* Menu::buscarPlatoCo(CodigoPlato codigo) {
 }
 
 void Menu::eliminarPlato() {
-    while (cabeza && !cabeza->dato.getDisponible()) {
-        NodoSimple* temp = cabeza;
-        cabeza = cabeza->siguiente;
-        delete temp;
-    }
-
     NodoSimple* actual = cabeza;
-    while (actual && actual->siguiente) {
-        if (!actual->siguiente->dato.getDisponible()) {
-            NodoSimple* temp = actual->siguiente;
-            actual->siguiente = temp->siguiente;
-            delete temp;
+    NodoSimple* anterior = nullptr;
+
+    while (actual) {
+        if (!actual->dato.getDisponible()) {
+            cout << "Eliminando plato agotado: " << actual->dato.getNombre() << endl;
+            if(actual == cabeza){
+                cabeza = cabeza->siguiente;
+                delete actual;
+                actual = cabeza;
+            } else {
+                anterior->siguiente = actual->siguiente;
+                delete actual;
+                actual = anterior->siguiente;
+            }
         } else {
+            anterior = actual;
             actual = actual->siguiente;
         }
+        
     }
 
     cout << "Se eliminaron los platos que estaban agotados." << endl;

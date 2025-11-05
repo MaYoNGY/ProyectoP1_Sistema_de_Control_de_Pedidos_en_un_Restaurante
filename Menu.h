@@ -24,7 +24,7 @@ class Menu{
 		Menu();
 		~Menu();
 
-		void registrarPlato(NombrePlato nombre, CodigoPlato codigo, PrecioPlato precio, CategoriaPlato categoria, CantidadPlatos cantidad, PlatoDisponible disponible);
+		void registrarPlato(NombrePlato nombre, CodigoPlato codigo, PrecioPlato precio, CategoriaPlato categoria, CantidadPlatos cantidad);
 		bool buscarPlato(NombrePlato nombre);
 		Plato* buscarPlatoCo(CodigoPlato codigo);
 		void eliminarPlato();

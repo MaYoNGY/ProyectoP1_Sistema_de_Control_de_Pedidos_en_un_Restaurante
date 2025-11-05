@@ -12,7 +12,7 @@ void MenuSistema::ingresarPlatos(){
 
 	getline(cin, nombre);
 		
-	m.registrarPlato(nombre, 0, 0.0, "", 0, true);
+	m.registrarPlato(nombre, 0, 0.0, "", 0);
 }
 
 void MenuSistema::buscarPlatos(){
@@ -51,7 +51,7 @@ void MenuSistema::mostrarMenuRestaurante(){
 			}
 				
 			case 3:{
-				cout << "Opcion no implementada aun..." << endl;
+				m.eliminarPlato();
 				break;
 			}
 				
