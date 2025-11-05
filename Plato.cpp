@@ -7,55 +7,65 @@ Plato::Plato(){
     codigo = 0;
     precio = 0.0;
     categoria = "";
+	cantidad = 0;
     disponible = true;
 }
 
-Plato::Plato(string nom, int co, float pre, string cat, bool dis){
+Plato::Plato(NombrePlato nom, CodigoPlato co, PrecioPlato pre, CategoriaPlato cat, CantidadPlatos can, PlatoDisponible dis){
 	nombre = nom;
 	codigo = co;
 	precio = pre;
 	categoria = cat;
+	cantidad = can;
 	disponible = dis;
 }
 
-string Plato::getNombre(){
+NombrePlato Plato::getNombre(){
 	return nombre;
 }
 
-void Plato::setNombre(string n){
+void Plato::setNombre(NombrePlato n){
 	nombre = n;
 }
 
-int Plato::getCodigo(){
+CodigoPlato Plato::getCodigo(){
 	return codigo;
 }
 
-void Plato::setCodigo(int c){
+void Plato::setCodigo(CodigoPlato c){
 	codigo = c;
 }
 
-float Plato::getPrecio(){
+PrecioPlato Plato::getPrecio(){
 	return precio;
 }
 
-void Plato::setPrecio(float p){
+void Plato::setPrecio(PrecioPlato p){
 	precio = p;
 }
 
-string Plato::getCategoria(){
+CategoriaPlato Plato::getCategoria(){
 	return categoria;
 }
 
-void Plato::setCategoria(string ca){
+void Plato::setCategoria(CategoriaPlato ca){
 	categoria = ca;
 }
 
-bool Plato::getDisponible(){
-	return true;
+PlatoDisponible Plato::getDisponible(){
+	return disponible;
 }
 
-void Plato::setDisponible(bool d){
+void Plato::setDisponible(PlatoDisponible d){
 	disponible = d;
+}
+
+CantidadPlatos Plato::getCantidad(){
+	return cantidad;
+}
+
+void Plato::setCantidad(CantidadPlatos cant){
+	cantidad = cant;
 }
 
 void Plato::mostrarPlato(){
@@ -65,6 +75,7 @@ void Plato::mostrarPlato(){
 	cout << "Codigo: " << codigo << endl;
 	cout << "Precio: $" << precio << endl;
 	cout << "Categoria: " << categoria << endl;
+	cout << "Cantidad: " << cantidad << endl;
 	cout << "Disponible: " << (disponible ? "Si" : "No") << endl;
 	cout << endl;
 }

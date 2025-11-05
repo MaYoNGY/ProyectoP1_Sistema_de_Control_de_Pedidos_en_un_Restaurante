@@ -23,9 +23,10 @@ class Menu{
 		
 		Menu();
 		~Menu();
-		
-		void registrarPlato(string nombre, int codigo, float precio, string categoria, bool disponible);
-		bool buscarPlato(string nombre);
+
+		void registrarPlato(NombrePlato nombre, CodigoPlato codigo, PrecioPlato precio, CategoriaPlato categoria, CantidadPlatos cantidad, PlatoDisponible disponible);
+		bool buscarPlato(NombrePlato nombre);
+		Plato* buscarPlatoCo(CodigoPlato codigo);
 		void eliminarPlato();
 		void mostrarMenu();
 };

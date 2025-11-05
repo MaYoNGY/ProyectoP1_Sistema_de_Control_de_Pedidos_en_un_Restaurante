@@ -4,54 +4,49 @@
 using namespace std;
 
 void MenuSistema::ingresarPlatos(){
-	string nombre, categoria;
-	int codigo;
-	float precio;
-		
+	NombrePlato nombre;
+
+	cout << endl;
 	cin.ignore();
-		
 	cout << "Ingrese el nombre del plato: ";
+
 	getline(cin, nombre);
 		
-	cout << "Ingrese el codigo del plato: ";
-	cin >> codigo;
-		
-	cout << "Ingrese el precio del plato: ";
-	cin >> precio;
+	m.registrarPlato(nombre, 0, 0.0, "", 0, true);
+}
+
+void MenuSistema::buscarPlatos(){
+	NombrePlato nombre;
 	
 	cin.ignore();
 	
-	cout << "Ingrese la categoria del plato: ";
-	getline(cin, categoria); 
-		
-	m.registrarPlato(nombre, codigo, precio, categoria, true);
+	cout << "Ingrese el nombre del plato que desea buscar: ";
+	getline(cin, nombre);
+	
+	m.buscarPlato(nombre);
 }
 
-void MenuSistema::mostrarMenuSistema(){
+void MenuSistema::mostrarMenuRestaurante(){
+	int opc;
 	do{
-		cout << "----- Menu del sistema -----" << endl;
+		cout << endl;
+		cout << "----- Menu del restaurante -----" << endl;
 		cout << "1. Ingreso de platos" << endl;
 		cout << "2. Busqueda de platos" << endl;
 		cout << "3. Eliminacion de platos agotados" << endl;
 		cout << "4. Mostrar Menu" << endl;
-		cout << "5. Salir del programa" << endl;
+		cout << "5. Regresar el menu principal" << endl;
 		cout << "Ingrese la opcion que desee: ";
 		cin >> opc;
 		
 		switch(opc){
-			case 1:
+			case 1:{
 				ingresarPlatos();
 				break;
+			}	
 			
 			case 2:{
-				string nombre;
-				
-				cin.ignore();
-				
-				cout << "Ingrese el nombre del plato que desea buscar: ";
-				getline(cin, nombre);
-				
-				m.buscarPlato(nombre);
+				buscarPlatos();
 				break;
 			}
 				
@@ -66,7 +61,7 @@ void MenuSistema::mostrarMenuSistema(){
 			}
 				
 			case 5:
-				cout << "Saliendo del sistema..." << endl;
+				cout << "Regresando al menu principal..." << endl;
 				break;	
 				
 			default:
@@ -75,4 +70,85 @@ void MenuSistema::mostrarMenuSistema(){
 		}
 		
 	}while(opc != 5);
+}
+
+void MenuSistema::mostrarMenuPedidos(){
+	int opc;
+	do{
+		cout << endl;
+		cout << "----- Menu de Pedidos -----" << endl;
+		cout << "1. Realizar pedido" << endl;
+		cout << "2. Atender pedido" << endl;
+		cout << "3. Mostrar pedidos pendientes" << endl;
+		cout << "4. Regresar al menu principal" << endl;
+		cout << "Ingrese la opcion que desee: ";
+		cin >> opc;
+		
+		switch(opc){
+			case 1:{
+				ps.realizarPedido();
+				break;
+			}
+				
+			case 2:{
+				ps.atenderPedido();
+				break;
+			}
+
+			case 3:{
+				ps.mostrarPedidos();
+				break;
+			}
+
+			case 4:
+				cout << "Regresando al menu principal..." << endl;
+				break;	
+				
+			default:
+				cout << "Opcion no valida!!! Intente nuevamente..." << endl;
+				
+		}
+		
+	}while(opc != 4);
+}
+
+
+void MenuSistema::mostrarMenuSistema(){
+	int opc;
+	do{
+		cout << endl;
+		cout << "----- Menu del sistema de restaurante -----" << endl;
+		cout << "1. Menu" << endl;
+		cout << "2. Pedidos" << endl;
+		cout << "3. Historial" << endl;
+		cout << "4. Salir del programa" << endl;
+		cout << "Ingrese la opcion que desee: ";
+		cin >> opc;
+		
+		switch(opc){
+			case 1:{
+				mostrarMenuRestaurante();
+				break;
+			}
+				
+			case 2:{
+				mostrarMenuPedidos();
+				break;
+			}
+				break;
+				
+			case 3:
+				cout << "Opcion no implementada aun..." << endl;
+				break;
+			
+			case 4:
+				cout << "Saliendo del sistema..." << endl;
+				break;	
+				
+			default:
+				cout << "Opcion no valida!!! Intente nuevamente..." << endl;
+				
+		}
+		
+	}while(opc != 4);
 }

@@ -14,22 +14,56 @@ Menu::~Menu() {
     }
 }
 
-void Menu::registrarPlato(string nombre, int codigo, float precio, string categoria, bool disponible) {
-    Plato p(nombre, codigo, precio, categoria, disponible);
+void Menu::registrarPlato(NombrePlato nombre, CodigoPlato codigo, PrecioPlato precio, CategoriaPlato categoria, CantidadPlatos cantidad, PlatoDisponible disponible) {
+    
+    NodoSimple* actual = cabeza;
+    while(actual){
+        if(actual->dato.getNombre() == nombre){
+            cout << endl;
+            cout << "El plato ya existe en el menu. Actualizando cantidad..." << endl;
+
+            cout << "Cuantos platos desea registrar?: ";
+	        cin >> cantidad;
+
+            Plato adicional(nombre, actual->dato.getCodigo(), actual->dato.getPrecio(), actual->dato.getCategoria(), actual->dato.getCantidad() + cantidad, actual->dato.getDisponible());
+            actual->dato = adicional;
+            cout << "Cantidad actualizada" << endl;
+            return;
+        }
+        actual = actual->siguiente;
+    }
+
+    cout << "Ingrese el codigo del plato: ";
+	cin >> codigo;
+		
+	cout << "Ingrese el precio del plato: ";
+	cin >> precio;
+	
+	cin.ignore();
+	
+	cout << "Ingrese la categoria del plato: ";
+	getline(cin, categoria); 
+
+    cout << "Cuantos platos desea registrar?: ";
+    cin >> cantidad;
+
+    Plato p(nombre, codigo, precio, categoria, cantidad, disponible);
     NodoSimple* nuevo = new NodoSimple(p);
     nuevo->siguiente = cabeza;
     cabeza = nuevo;
     cout << endl << "Plato registrado exitosamente!!" << endl;
 }
 
-bool Menu::buscarPlato(string nombre) {
+bool Menu::buscarPlato(NombrePlato nombre) {
     NodoSimple* actual = cabeza;
     while (actual != nullptr) {
         if (actual->dato.getNombre() == nombre) {
+            cout << endl;
             cout << "Plato [" << nombre << "] encontrado" << endl;
             cout << "Codigo: " << actual->dato.getCodigo() << endl;
-            cout << "Precio: " << actual->dato.getPrecio() << endl;
+            cout << "Precio: $" << actual->dato.getPrecio() << endl;
             cout << "Categoria: " << actual->dato.getCategoria() << endl;
+            cout << "Cantidad: " << actual->dato.getCantidad() << endl;
             cout << "Disponible: " << (actual->dato.getDisponible() ? "Si" : "No") << endl;
             return true;
         }
@@ -37,6 +71,17 @@ bool Menu::buscarPlato(string nombre) {
     }
     cout << "Plato no encontrado en el menu!!" << endl;
     return false;
+}
+
+Plato* Menu::buscarPlatoCo(CodigoPlato codigo) {
+    NodoSimple* actual = cabeza;
+    while (actual) {
+        if (actual->dato.getCodigo() == codigo) {
+            return &actual->dato;
+        }
+        actual = actual->siguiente;
+    }
+    return nullptr;
 }
 
 void Menu::eliminarPlato() {

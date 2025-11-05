@@ -2,16 +2,21 @@
 #define MENUSISTEMA_H
 
 #include "Menu.h"
+#include "PedidosSistema.h"
 using namespace std;
 
 class MenuSistema{
 	private:
 		Menu m;
-		int opc;
+		Plato p;
+		PedidosSistema ps{&m};
 		
 	public:
+		void mostrarMenuRestaurante();
 		void mostrarMenuSistema();
+		void mostrarMenuPedidos();
 		void ingresarPlatos();
+		void buscarPlatos();
 	
 };
 

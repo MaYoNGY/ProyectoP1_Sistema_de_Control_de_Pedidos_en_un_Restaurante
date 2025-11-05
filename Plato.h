@@ -9,6 +9,7 @@ typedef unsigned int CodigoPlato;
 typedef float PrecioPlato;
 typedef string CategoriaPlato;
 typedef bool PlatoDisponible;
+typedef unsigned int CantidadPlatos;
 
 class Plato{
 	
@@ -18,27 +19,31 @@ class Plato{
 		PrecioPlato precio;
 		CategoriaPlato categoria;
 		PlatoDisponible disponible;
+		CantidadPlatos cantidad;
 	
 	public:
 		
 		Plato();
 		
-		Plato(string nom, int co, float pre, string cat, bool dis = true);
+		Plato(NombrePlato nom, CodigoPlato co, PrecioPlato pre, CategoriaPlato cat, CantidadPlatos can, PlatoDisponible dis = true);
 				
-		string getNombre();
-		void setNombre(string n);
+		NombrePlato getNombre();
+		void setNombre(NombrePlato n);
 		
-		int getCodigo();
-		void setCodigo(int c);
+		CodigoPlato getCodigo();
+		void setCodigo(CodigoPlato c);
 		
-		float getPrecio();
-		void setPrecio(float p);
+		PrecioPlato getPrecio();
+		void setPrecio(PrecioPlato p);
 		
-		string getCategoria();
-		void setCategoria(string ca);
+		CategoriaPlato getCategoria();
+		void setCategoria(CategoriaPlato ca);
 		
-		bool getDisponible();
-		void setDisponible(bool d);
+		PlatoDisponible getDisponible();
+		void setDisponible(PlatoDisponible d);
+
+		CantidadPlatos getCantidad();
+		void setCantidad(CantidadPlatos cant);
 		
 		void mostrarPlato();
 		
