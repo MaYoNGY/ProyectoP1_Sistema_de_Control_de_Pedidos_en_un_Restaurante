@@ -1,22 +1,34 @@
-#include "Menu.h"
+#include "MenuRestaurante.h"
 #include <iostream>
 using namespace std;
 
-Menu::Menu() {
+MenuRestaurante::MenuRestaurante(){ 
     cabeza = nullptr;
 }
 
-Menu::~Menu() {
-    while (cabeza) {
-        NodoSimple* temp = cabeza;
+MenuRestaurante::~MenuRestaurante(){ 
+    while(cabeza){
+        NodoDoble* temp = cabeza;
         cabeza = cabeza->siguiente;
         delete temp;
     }
 }
 
-void Menu::registrarPlato(NombrePlato nombre, CodigoPlato codigo, PrecioPlato precio, CategoriaPlato categoria, CantidadPlatos cantidad) {
+void MenuRestaurante::registrarPlato(){ //Insercion desde el inicio
     
-    NodoSimple* actual = cabeza;
+    NodoDoble* actual = cabeza;
+    
+    NombrePlato nombre;
+	CodigoPlato codigo;
+	PrecioPlato precio;
+	CategoriaPlato categoria;
+	CantidadPlatos cantidad;
+    
+    cout << endl;
+	cin.ignore();
+	cout << "Ingrese el nombre del plato: ";
+	getline(cin, nombre);
+    
     while(actual){
         if(actual->dato.getNombre() == nombre){
             cout << endl;
@@ -48,16 +60,27 @@ void Menu::registrarPlato(NombrePlato nombre, CodigoPlato codigo, PrecioPlato pr
     cin >> cantidad;
 
     Plato p(nombre, codigo, precio, categoria, cantidad);
-    NodoSimple* nuevo = new NodoSimple(p);
+    NodoDoble* nuevo = new NodoDoble(p);
     nuevo->siguiente = cabeza;
+    nuevo->anterior = nullptr;
+    if(cabeza)
+    	cabeza->anterior = nuevo;
     cabeza = nuevo;
     cout << endl << "Plato registrado exitosamente!!" << endl;
 }
 
-bool Menu::buscarPlato(NombrePlato nombre) {
-    NodoSimple* actual = cabeza;
-    while (actual != nullptr) {
-        if (actual->dato.getNombre() == nombre) {
+bool MenuRestaurante::buscarPlato(){ //Busqueda desde el inicio
+    NodoDoble* actual = cabeza;
+    
+    NombrePlato nombre;
+    
+    cout << endl;
+	cin.ignore();
+	cout << "Ingrese el nombre del plato: ";
+	getline(cin, nombre);
+    
+    while(actual != nullptr){
+        if(actual->dato.getNombre() == nombre){
             cout << endl;
             cout << "Plato [" << nombre << "] encontrado" << endl;
             cout << "Codigo: " << actual->dato.getCodigo() << endl;
@@ -73,55 +96,62 @@ bool Menu::buscarPlato(NombrePlato nombre) {
     return false;
 }
 
-Plato* Menu::buscarPlatoCo(CodigoPlato codigo) {
-    NodoSimple* actual = cabeza;
-    while (actual) {
-        if (actual->dato.getCodigo() == codigo) {
+Plato* MenuRestaurante::buscarPlatoCo(CodigoPlato codigo){
+    NodoDoble* actual = cabeza;
+    
+    while(actual){
+        if (actual->dato.getCodigo() == codigo){
             return &actual->dato;
         }
         actual = actual->siguiente;
     }
+    
+    cout << "Plato no encontrado en el menu!!" << endl;
     return nullptr;
 }
 
-void Menu::eliminarPlato() {
-    NodoSimple* actual = cabeza;
-    NodoSimple* anterior = nullptr;
+void MenuRestaurante::eliminarPlato(){
+    NodoDoble* actual = cabeza;
 
-    while (actual) {
-        if (!actual->dato.getDisponible()) {
+    while(actual){
+        if (!actual->dato.getDisponible()){
             cout << "Eliminando plato agotado: " << actual->dato.getNombre() << endl;
-            if(actual == cabeza){
-                cabeza = cabeza->siguiente;
-                delete actual;
+    
+            NodoDoble* eliminar = actual;
+            
+            if(actual == cabeza){ //Eliminar cabeza
+                cabeza = actual->siguiente;
+                if(cabeza)
+                	cabeza->anterior = nullptr;
                 actual = cabeza;
-            } else {
-                anterior->siguiente = actual->siguiente;
-                delete actual;
-                actual = anterior->siguiente;
+            }else{ //Eliminar intermedio o final
+                actual->anterior->siguiente = actual->siguiente;
+                if(actual->siguiente)
+                	actual->siguiente->anterior = actual->anterior;
+                actual = actual->siguiente;
             }
-        } else {
-            anterior = actual;
+            delete eliminar;
+        }else{
             actual = actual->siguiente;
-        }
-        
+        }  
     }
 
     cout << "Se eliminaron los platos que estaban agotados." << endl;
 }
 
-void Menu::mostrarMenu() {
-    if (!cabeza) {
+void MenuRestaurante::mostrarMenu(){ // mostrar menu desde el inicio
+    if (!cabeza){
         cout << "El menu esta vacio!!" << endl;
         return;
     }
 
-    NodoSimple* actual = cabeza;
-    cout << endl << "----- Menu ------" << endl;
-    while (actual != nullptr) {
+    NodoDoble* actual = cabeza;
+    cout << endl << "------ Menu -------" << endl;
+    while(actual){
         actual->dato.mostrarPlato();
         actual = actual->siguiente;
     }
+    cout << "---------------" << endl;
 }
 
 

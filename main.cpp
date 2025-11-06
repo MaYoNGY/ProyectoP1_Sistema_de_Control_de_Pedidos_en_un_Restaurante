@@ -2,9 +2,6 @@
 #include "MenuSistema.h"
 
 int main() {
-	
-	MenuSistema m;
-	m.mostrarMenuSistema();
-	
-	return 0;
+    MenuSistema me;
+	me.mostrarMenuSistema();
 }

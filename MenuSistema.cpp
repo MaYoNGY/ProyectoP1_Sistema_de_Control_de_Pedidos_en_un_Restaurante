@@ -3,28 +3,7 @@
 #include <string>
 using namespace std;
 
-void MenuSistema::ingresarPlatos(){
-	NombrePlato nombre;
-
-	cout << endl;
-	cin.ignore();
-	cout << "Ingrese el nombre del plato: ";
-
-	getline(cin, nombre);
-		
-	m.registrarPlato(nombre, 0, 0.0, "", 0);
-}
-
-void MenuSistema::buscarPlatos(){
-	NombrePlato nombre;
-	
-	cin.ignore();
-	
-	cout << "Ingrese el nombre del plato que desea buscar: ";
-	getline(cin, nombre);
-	
-	m.buscarPlato(nombre);
-}
+MenuSistema::MenuSistema(): m(), p(), c(&m){}
 
 void MenuSistema::mostrarMenuRestaurante(){
 	int opc;
@@ -40,25 +19,25 @@ void MenuSistema::mostrarMenuRestaurante(){
 		cin >> opc;
 		
 		switch(opc){
-			case 1:{
-				ingresarPlatos();
+			case 1:
+				m.registrarPlato();
 				break;
-			}	
-			
-			case 2:{
-				buscarPlatos();
-				break;
-			}
 				
-			case 3:{
+			
+			case 2:
+				m.buscarPlato();
+				break;
+			
+				
+			case 3:
 				m.eliminarPlato();
 				break;
-			}
+			
 				
-			case 4:{
+			case 4:
 				m.mostrarMenu();
 				break;
-			}
+			
 				
 			case 5:
 				cout << "Regresando al menu principal..." << endl;
@@ -85,20 +64,20 @@ void MenuSistema::mostrarMenuPedidos(){
 		cin >> opc;
 		
 		switch(opc){
-			case 1:{
-				ps.realizarPedido();
+			case 1:
+				c.agregarPedido();
 				break;
-			}
+			
 				
-			case 2:{
-				ps.atenderPedido();
+			case 2:
+				c.atenderPedido();
 				break;
-			}
+			
 
-			case 3:{
-				ps.mostrarPedidos();
+			case 3:
+				c.mostrarPedidos();
 				break;
-			}
+			
 
 			case 4:
 				cout << "Regresando al menu principal..." << endl;
@@ -126,15 +105,15 @@ void MenuSistema::mostrarMenuSistema(){
 		cin >> opc;
 		
 		switch(opc){
-			case 1:{
+			case 1:
 				mostrarMenuRestaurante();
 				break;
-			}
+			
 				
-			case 2:{
+			case 2:
 				mostrarMenuPedidos();
 				break;
-			}
+			
 				break;
 				
 			case 3:

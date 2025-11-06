@@ -1,0 +1,43 @@
+# Project: Proyecto_Contro_Pedidos
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = main.o Plato.o MenuRestaurante.o Pedido.o ColaPedidos.o MenuSistema.o
+LINKOBJ  = main.o Plato.o MenuRestaurante.o Pedido.o ColaPedidos.o MenuSistema.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = Proyecto_Contro_Pedidos.exe
+CXXFLAGS = $(CXXINCS) -std=c++14
+CFLAGS   = $(INCS) -std=c++14
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+Plato.o: Plato.cpp
+	$(CPP) -c Plato.cpp -o Plato.o $(CXXFLAGS)
+
+MenuRestaurante.o: MenuRestaurante.cpp
+	$(CPP) -c MenuRestaurante.cpp -o MenuRestaurante.o $(CXXFLAGS)
+
+Pedido.o: Pedido.cpp
+	$(CPP) -c Pedido.cpp -o Pedido.o $(CXXFLAGS)
+
+ColaPedidos.o: ColaPedidos.cpp
+	$(CPP) -c ColaPedidos.cpp -o ColaPedidos.o $(CXXFLAGS)
+
+MenuSistema.o: MenuSistema.cpp
+	$(CPP) -c MenuSistema.cpp -o MenuSistema.o $(CXXFLAGS)
