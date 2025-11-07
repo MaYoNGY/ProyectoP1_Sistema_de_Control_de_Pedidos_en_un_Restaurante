@@ -70,17 +70,33 @@ void ColaPedidos::agregarPedido(){ //Insertar en el fondo
         rear = nuevo;
     }
     contador++;
-    cout << "Pedido registrado exitosamente" << endl;
+    cout << "Pedido agregado a la cola exitosamente" << endl;
 }
 
-void ColaPedidos::atenderPedido(){
+void ColaPedidos::agregarPedido(const Pedido& p){
+	NodoPedido* nuevo = new NodoPedido(p);
+	
+	if(estaVacia()){
+		front = rear = nuevo;
+	}else{
+		rear->siguiente = nuevo;
+		nuevo->anterior = rear;
+		rear = nuevo;
+	}
+	
+	contador++;
+	cout << "Pedido #" << p.getNumeroPedido() << " de " << p.getCliente() << " fue restaurado a la cola" << endl;
+}
+
+Pedido ColaPedidos::atenderPedido(){
     if(estaVacia()){
     	cout << "No hay pedidos pendientes" << endl;
-        return;
+        return Pedido();
     }
     NodoPedido* temp = front;
-    cout << "Atendiendo pedido #" << temp->dato.getNumeroPedido() << endl;
-    front->dato.mostrarPedido();
+    Pedido pedidoAtendido = temp->dato;
+    cout << "----- Atendiendo pedido #" << temp->dato.getNumeroPedido() << " -----" << endl;
+    pedidoAtendido.mostrarPedido();
     front = front->siguiente;
     
     if(front){
@@ -91,6 +107,8 @@ void ColaPedidos::atenderPedido(){
 	
 	delete temp;
     contador--;
+    
+    return pedidoAtendido;
 }
 
 void ColaPedidos::mostrarPedidos() const{

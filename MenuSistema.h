@@ -2,6 +2,7 @@
 #define MENUSISTEMA_H
 
 #include "ColaPedidos.h"
+#include "Historial.h"
 using namespace std;
 
 class MenuSistema{
@@ -9,12 +10,14 @@ class MenuSistema{
 		MenuRestaurante m;
 		Plato p;
 		ColaPedidos c;
+		Historial h;
 		
 	public:
 		MenuSistema();
 		void mostrarMenuRestaurante();
-		void mostrarMenuSistema();
 		void mostrarMenuPedidos();
+		void mostrarMenuHistorial();
+		void mostrarMenuSistema();
 	
 };
 

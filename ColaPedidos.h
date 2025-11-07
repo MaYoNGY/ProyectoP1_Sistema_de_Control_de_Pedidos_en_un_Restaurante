@@ -37,7 +37,8 @@ class ColaPedidos{
         bool estaVacia() const;
 
         void agregarPedido(); // enqueue
-        void atenderPedido(); // dequeue
+        void agregarPedido(const Pedido& p); // enqueue
+        Pedido atenderPedido(); // dequeue
         void mostrarPedidos() const;
         
 

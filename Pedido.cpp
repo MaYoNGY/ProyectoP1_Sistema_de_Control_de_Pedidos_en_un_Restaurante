@@ -18,7 +18,7 @@ Pedido::Pedido(NumeroPedido numP, NombrePlatoPedido n, NombreCliente cli, Cantid
     total = t;
 }
 
-NumeroPedido Pedido::getNumeroPedido(){
+NumeroPedido Pedido::getNumeroPedido() const{
     return numPedido;
 }
 
@@ -34,7 +34,7 @@ void Pedido::setNombre(NombrePlatoPedido n){
     nombre = n;
 }
 
-NombreCliente Pedido::getCliente(){
+NombreCliente Pedido::getCliente() const{
     return cliente;
 }
 

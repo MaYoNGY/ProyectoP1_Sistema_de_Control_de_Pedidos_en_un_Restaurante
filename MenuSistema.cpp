@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-MenuSistema::MenuSistema(): m(), p(), c(&m){}
+MenuSistema::MenuSistema(): m(), p(), c(&m), h(){}
 
 void MenuSistema::mostrarMenuRestaurante(){
 	int opc;
@@ -64,16 +64,19 @@ void MenuSistema::mostrarMenuPedidos(){
 		cin >> opc;
 		
 		switch(opc){
-			case 1:
+			case 1:{
 				c.agregarPedido();
 				break;
+			}
+
 			
 				
-			case 2:
-				c.atenderPedido();
+			case 2:{
+				Pedido entregado = c.atenderPedido();
+				h.apilarPedido(entregado);
 				break;
-			
-
+			}
+					
 			case 3:
 				c.mostrarPedidos();
 				break;
@@ -91,6 +94,41 @@ void MenuSistema::mostrarMenuPedidos(){
 	}while(opc != 4);
 }
 
+void MenuSistema::mostrarMenuHistorial(){
+	int opc;
+	do{
+		cout << endl;
+		cout << "----- Menu del historial -----" << endl;
+		cout << "1. Mostrar Historial" << endl;
+		cout << "2. Desasher ultimo pedido" << endl;
+		cout << "3. Regresar al menu principal" << endl;
+		cout << "Ingrese la opcion que desee: ";
+		cin >> opc;
+		
+		switch(opc){
+			case 1:
+				h.mostrarHistorial();
+				break;
+			
+			case 2:{
+				Pedido ultimo = h.desapilarPedido();
+				if (!ultimo.getCliente().empty()) {
+    				c.agregarPedido(ultimo);
+				}				
+				break;
+			}
+			
+			case 3:
+				cout << "Regresando al menu principal..." << endl;
+				break;	
+				
+			default:
+				cout << "Opcion no valida!!! Intente nuevamente..." << endl;
+				
+		}
+		
+	}while(opc != 3);
+}
 
 void MenuSistema::mostrarMenuSistema(){
 	int opc;
@@ -108,16 +146,13 @@ void MenuSistema::mostrarMenuSistema(){
 			case 1:
 				mostrarMenuRestaurante();
 				break;
-			
 				
 			case 2:
 				mostrarMenuPedidos();
 				break;
-			
-				break;
 				
 			case 3:
-				cout << "Opcion no implementada aun..." << endl;
+				mostrarMenuHistorial();
 				break;
 			
 			case 4:
@@ -131,3 +166,4 @@ void MenuSistema::mostrarMenuSistema(){
 		
 	}while(opc != 4);
 }
+

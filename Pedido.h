@@ -24,13 +24,13 @@ class Pedido{
         
         Pedido(NumeroPedido numP, NombrePlatoPedido n, NombreCliente cli, CantidadPlatosPedidos ca, TotalPagar t);
         
-        NumeroPedido getNumeroPedido();
+        NumeroPedido getNumeroPedido() const;
         void setNumeroPedido(NumeroPedido numP);
         
         NombrePlatoPedido getNombre();
         void setNombre(NombrePlatoPedido n);
         
-        NombreCliente getCliente();
+        NombreCliente getCliente() const;
         void setCliente(NombreCliente cli);
         
         CantidadPlatosPedidos getCantidad();
