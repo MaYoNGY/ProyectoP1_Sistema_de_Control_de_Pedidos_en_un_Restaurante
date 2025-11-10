@@ -36,10 +36,12 @@ class ColaPedidos{
         
         bool estaVacia() const;
 
-        void agregarPedido(); // enqueue
+        void agregarPedido(NombreCliente cliente); // enqueue
         void agregarPedido(const Pedido& p); // enqueue
         Pedido atenderPedido(); // dequeue
+        bool cancelarPedido(NombreCliente cliente);
         void mostrarPedidos() const;
+        float calcularIngresosEsperados() const;
         
 
 };

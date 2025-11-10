@@ -13,8 +13,11 @@ void MenuSistema::mostrarMenuRestaurante(){
 		cout << "1. Ingreso de platos" << endl;
 		cout << "2. Busqueda de platos" << endl;
 		cout << "3. Eliminacion de platos agotados" << endl;
-		cout << "4. Mostrar Menu" << endl;
-		cout << "5. Regresar el menu principal" << endl;
+		cout << "4. Eliminar plato del menu" << endl;
+		cout << "5. Mostrar Menu" << endl;
+		cout << "6. Buscar categoria" << endl;
+		cout << "7. Comparar precios" << endl;
+		cout << "8. Regresar el menu principal" << endl;
 		cout << "Ingrese la opcion que desee: ";
 		cin >> opc;
 		
@@ -30,16 +33,31 @@ void MenuSistema::mostrarMenuRestaurante(){
 			
 				
 			case 3:
+				m.eliminarPlatoAgotado();
+				break;
+			
+			case 4:
 				m.eliminarPlato();
 				break;
-			
-				
-			case 4:
-				m.mostrarMenu();
-				break;
-			
 				
 			case 5:
+				m.mostrarMenu();
+				break;
+				
+			case 6:{
+				CategoriaPlato categoria;
+				cout << "Ingrese la categoria que desea buscar: ";
+				cin >> categoria;
+				m.contarPlatosPorCategoria(categoria);
+				break;
+			}
+			
+			case 7:{
+				m.compararPrecios();
+				break;
+			}
+			
+			case 8:
 				cout << "Regresando al menu principal..." << endl;
 				break;	
 				
@@ -48,7 +66,7 @@ void MenuSistema::mostrarMenuRestaurante(){
 				
 		}
 		
-	}while(opc != 5);
+	}while(opc != 8);
 }
 
 void MenuSistema::mostrarMenuPedidos(){
@@ -59,17 +77,20 @@ void MenuSistema::mostrarMenuPedidos(){
 		cout << "1. Realizar pedido" << endl;
 		cout << "2. Atender pedido" << endl;
 		cout << "3. Mostrar pedidos pendientes" << endl;
-		cout << "4. Regresar al menu principal" << endl;
+		cout << "4. Cancelar pedido" << endl;
+		cout << "5. Regresar al menu principal" << endl;
 		cout << "Ingrese la opcion que desee: ";
 		cin >> opc;
 		
 		switch(opc){
 			case 1:{
-				c.agregarPedido();
+				NombreCliente cliente;
+				cin.ignore();
+    			cout << "Ingrese su nombre: ";
+    			getline(cin, cliente);
+				c.agregarPedido(cliente);
 				break;
 			}
-
-			
 				
 			case 2:{
 				Pedido entregado = c.atenderPedido();
@@ -81,8 +102,16 @@ void MenuSistema::mostrarMenuPedidos(){
 				c.mostrarPedidos();
 				break;
 			
-
-			case 4:
+			case 4:{
+				NombreCliente cliente;
+				cin.ignore();
+    			cout << "Ingrese su nombre: ";
+    			getline(cin, cliente);
+				c.cancelarPedido(cliente);
+				break;
+			}
+				
+			case 5:
 				cout << "Regresando al menu principal..." << endl;
 				break;	
 				
@@ -91,7 +120,7 @@ void MenuSistema::mostrarMenuPedidos(){
 				
 		}
 		
-	}while(opc != 4);
+	}while(opc != 5);
 }
 
 void MenuSistema::mostrarMenuHistorial(){
@@ -108,6 +137,7 @@ void MenuSistema::mostrarMenuHistorial(){
 		switch(opc){
 			case 1:
 				h.mostrarHistorial();
+				h.calcularIngresosRecursivo();
 				break;
 			
 			case 2:{

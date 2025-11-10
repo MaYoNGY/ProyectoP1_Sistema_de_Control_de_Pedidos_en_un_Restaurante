@@ -4,18 +4,14 @@ using namespace std;
 
 Pedido::Pedido(){
     numPedido = 0;
-    nombre = "";
     cliente = "";
-    cantidad = 0;
     total = 0.0;
 }
 
-Pedido::Pedido(NumeroPedido numP, NombrePlatoPedido n, NombreCliente cli, CantidadPlatosPedidos ca, TotalPagar t){
+Pedido::Pedido(NumeroPedido numP, NombreCliente cli){
     numPedido = numP;
-    nombre = n;
     cliente = cli;
-    cantidad = ca;
-    total = t;
+    total = 0.0;
 }
 
 NumeroPedido Pedido::getNumeroPedido() const{
@@ -26,14 +22,6 @@ void Pedido::setNumeroPedido(NumeroPedido numP){
     numPedido = numP;
 }
 
-NombrePlatoPedido Pedido::getNombre(){
-    return nombre;
-}
-
-void Pedido::setNombre(NombrePlatoPedido n){
-    nombre = n;
-}
-
 NombreCliente Pedido::getCliente() const{
     return cliente;
 }
@@ -42,15 +30,7 @@ void Pedido::setCliente(NombreCliente cli){
     cliente = cli;
 }
 
-CantidadPlatosPedidos Pedido::getCantidad(){
-    return cantidad;
-}
-
-void Pedido::setCantidad(CantidadPlatosPedidos ca){
-    cantidad = ca;
-}
-
-TotalPagar Pedido::getTotal(){
+TotalPagar Pedido::getTotal() const{
     return total;
 }
 
@@ -58,11 +38,37 @@ void Pedido::setTotal(TotalPagar t){
     total = t;
 }
 
-void Pedido::mostrarPedido(){
+vector<pair<Plato*, unsigned int>> Pedido::getPlatosPedidos() const{
+	return platosPedidos;
+}
+
+void Pedido::agregarPlato(Plato* plato, CantidadPlatosPedidos cantidad) {
+    if (plato == nullptr || cantidad == 0) return;
+
+    platosPedidos.push_back({plato, cantidad});
+    total += plato->getPrecio() * cantidad;
+}
+
+void Pedido::mostrarPedido() const{
+	cout << endl;
     cout << "Pedido #" << numPedido << endl;
     cout << "Cliente: " << cliente << endl;
-    cout << "Plato: " << nombre << endl;
-    cout << "Cantidad: " << cantidad << endl;
+    cout << "--------------------------------" << endl;
+
+    for (const auto& par : platosPedidos) {
+        Plato* p = par.first;
+        CantidadPlatosPedidos cant = par.second;
+
+        cout << "Plato: " << p->getNombre() << endl;
+        cout << "Precio: $" << p->getPrecio() << endl;
+        cout << "Cantidad: " << cant << endl;
+        cout << "Subtotal: $" << p->getPrecio() * cant << endl;
+        cout << "--------------------------------" << endl;
+    }
+    cout << "--------------------------------" << endl;
     cout << "Total a pagar: $" << total << endl;
 }
 
+float Pedido::operator+(const Pedido& otro) const {
+    return this->total + otro.total;
+}

@@ -17,14 +17,20 @@ class Historial{
 	private:
 		NodoPila* tope;
 		
+	double sumarIngresos(NodoPila* nodo){
+    	if(nodo == nullptr){
+        return 0;
+    	}
+    	return nodo->dato.getTotal() + sumarIngresos(nodo->siguiente);
+	}	
+		
 	public:
 		Historial();
 		bool pilaVacia();
 		void apilarPedido(Pedido p);
 		Pedido desapilarPedido();
 		void mostrarHistorial();
-		
-		
+		double calcularIngresosRecursivo();
 };
 
 #endif

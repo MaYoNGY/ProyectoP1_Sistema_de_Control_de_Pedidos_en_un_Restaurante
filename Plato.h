@@ -47,6 +47,8 @@ class Plato{
 		
 		void mostrarPlato();
 		
+		friend bool operator>(const Plato& a, const Plato& b);
+		friend bool operator<(const Plato& a, const Plato& b);
 };
 
 #endif

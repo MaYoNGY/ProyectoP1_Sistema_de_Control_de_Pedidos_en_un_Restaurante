@@ -14,7 +14,7 @@ void Historial::apilarPedido(Pedido p){
 	NodoPila* nuevo = new NodoPila(p);
 	nuevo->siguiente = tope;
 	tope = nuevo;
-	cout << "Pedido de " << p.getCliente() << "agregado al historial" << endl;	 
+	cout << "Pedido de " << p.getCliente() << " agregado al historial" << endl;	 
 }
 
 Pedido Historial::desapilarPedido(){
@@ -36,7 +36,7 @@ void Historial::mostrarHistorial(){
 		cout << "Historial vacio" << endl;
 		return;
 	}
-	
+	cout << endl;
 	cout << "----- Historial de pedidos entregados -----" << endl;
 	NodoPila* aux = tope;
 	while(aux != nullptr){
@@ -44,4 +44,15 @@ void Historial::mostrarHistorial(){
 		cout << "-----------------------------------------" << endl;
 		aux = aux->siguiente;
 	}
+}
+
+double Historial::calcularIngresosRecursivo() {
+    if (pilaVacia()) {
+        cout << "No hay pedidos entregados" << endl;
+        return 0;
+    }
+
+    double total = sumarIngresos(tope);
+    cout << "Ingresos totales por pedidos entregados: $" << total << endl;
+    return total;
 }
