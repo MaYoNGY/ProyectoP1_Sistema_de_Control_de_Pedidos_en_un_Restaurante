@@ -1,5 +1,6 @@
 #include "MenuRestaurante.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 MenuRestaurante::MenuRestaurante(){ 
@@ -264,6 +265,69 @@ void MenuRestaurante::compararPrecios(){
     }else{
         cout << "Ambos platos tienen el mismo precio." << endl;
     }
+}
+
+void MenuRestaurante::guardarMenu(const string& nombreArchivo){
+    ofstream archivo(nombreArchivo, ios::binary);
+    if(!archivo){
+        cout << "Error al abrir el archivo para guardar el menu." << endl;
+        return;
+    }
+    
+    int contador = 0;
+    NodoDoble* temp = cabeza;
+    while(temp){
+        contador++;
+        temp = temp->siguiente;
+    }
+    
+    archivo.write(reinterpret_cast<const char*>(&contador), sizeof(contador));
+    
+    temp = cabeza;
+    while(temp){
+        temp->dato.guardarEnArchivo(archivo);
+        temp = temp->siguiente;
+    }
+    
+    archivo.close();
+    cout << "Menu guardado exitosamente en (" << nombreArchivo << ")." << endl;
+}
+
+void MenuRestaurante::cargarMenu(const string& nombreArchivo){
+    ifstream archivo(nombreArchivo, ios::binary);
+    if(!archivo){
+        cout << "No se encontro archivo previo del menu. Iniciando con menu vacio." << endl;
+        return;
+    }
+    
+    // Limpiar menu actual
+    while(cabeza){
+        NodoDoble* temp = cabeza;
+        cabeza = cabeza->siguiente;
+        delete temp;
+    }
+    cabeza = nullptr;
+    cola = nullptr;
+    
+    int contador;
+    archivo.read(reinterpret_cast<char*>(&contador), sizeof(contador));
+    
+    for(int i = 0; i < contador; i++){
+        Plato p;
+        p.cargarDesdeArchivo(archivo);
+        
+        NodoDoble* nuevo = new NodoDoble(p);
+        nuevo->siguiente = cabeza;
+        nuevo->anterior = nullptr;
+        if(cabeza)
+            cabeza->anterior = nuevo;
+        else
+            cola = nuevo;
+        cabeza = nuevo;
+    }
+    
+    archivo.close();
+    cout << "Menu cargado exitosamente desde (" << nombreArchivo << ")." << endl;
 }
 
 

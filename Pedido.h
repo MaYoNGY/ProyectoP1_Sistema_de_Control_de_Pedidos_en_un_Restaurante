@@ -4,6 +4,7 @@
 #include "Plato.h"
 #include <vector>
 #include <string>
+#include <fstream>
 using namespace std;
 
 typedef unsigned int NumeroPedido;
@@ -40,6 +41,9 @@ class Pedido{
         void mostrarPedido() const;
         
         float operator+(const Pedido& otro) const;
+        
+        void guardarEnArchivo(ofstream& archivo) const;
+        void cargarDesdeArchivo(ifstream& archivo);
 
 };
 

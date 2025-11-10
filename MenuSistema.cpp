@@ -3,7 +3,31 @@
 #include <string>
 using namespace std;
 
-MenuSistema::MenuSistema(): m(), c(&m), h(){}
+MenuSistema::MenuSistema(): m(), c(&m), h(){
+	cargarDatos();
+}
+
+MenuSistema::~MenuSistema() {
+	guardarDatos();
+}
+
+void MenuSistema::cargarDatos(){
+	cout << "----- Cargando datos del sistema -----" << endl;
+	m.cargarMenu("menu.dat");
+	c.cargarCola("pedidos.dat");
+	h.cargarHistorial("historial.dat");
+	cout << "---------------------------------------" << endl;
+	cout << endl;
+}
+
+void MenuSistema::guardarDatos(){
+	cout << endl;
+	cout << "----- Guardando datos del sistema -----" << endl;
+	m.guardarMenu("menu.dat");
+	c.guardarCola("pedidos.dat");
+	h.guardarHistorial("historial.dat");
+	cout << "---------------------------------------" << endl;
+}
 
 void MenuSistema::mostrarMenuRestaurante(){
 	int opcMR;

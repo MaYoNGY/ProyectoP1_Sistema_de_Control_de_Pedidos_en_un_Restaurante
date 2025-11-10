@@ -1,5 +1,6 @@
 #include "ColaPedidos.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -11,7 +12,7 @@ ColaPedidos::ColaPedidos(){
     m = nullptr;
 }
 
-ColaPedidos::ColaPedidos(MenuRestaurante* menu) {
+ColaPedidos::ColaPedidos(MenuRestaurante* menu){
     m = menu;
     front = rear = nullptr;
     numPedidoActual = 1;
@@ -22,6 +23,14 @@ ColaPedidos::~ColaPedidos(){
     while (!estaVacia()){
         atenderPedido();
     }
+}
+
+void ColaPedidos::setNumPedidoActual(int num){
+    numPedidoActual = num;
+}
+
+int ColaPedidos::getNumPedidoActual() const{
+    return numPedidoActual;
 }
 
 bool ColaPedidos::estaVacia() const{
@@ -178,7 +187,7 @@ Pedido ColaPedidos::atenderPedido(){
     return pedidoAtendido;
 }
 
-bool ColaPedidos::cancelarPedido(NombreCliente cliente) {
+bool ColaPedidos::cancelarPedido(NombreCliente cliente){
     if(estaVacia()){
         cout << "No hay pedidos en la cola" << endl;
         return false;
@@ -272,4 +281,64 @@ float ColaPedidos::calcularIngresosEsperados() const{
     cout << "Ingresos esperados de pedidos: $" << acumulador.getTotal() << endl;
     return acumulador.getTotal();
 }
+
+void ColaPedidos::guardarCola(const string& nombreArchivo){
+    ofstream archivo(nombreArchivo, ios::binary);
+    if (!archivo){
+        cout << "Error al abrir el archivo para guardar la cola de pedidos." << endl;
+        return;
+    }
+    
+    archivo.write(reinterpret_cast<const char*>(&numPedidoActual), sizeof(numPedidoActual));
+    archivo.write(reinterpret_cast<const char*>(&contador), sizeof(contador));
+    
+    NodoPedido* temp = front;
+    while (temp){
+        temp->dato.guardarEnArchivo(archivo);
+        temp = temp->siguiente;
+    }
+    
+    archivo.close();
+    cout << "Cola de pedidos guardada exitosamente en (" << nombreArchivo << ")." << endl;
+}
+
+void ColaPedidos::cargarCola(const string& nombreArchivo){
+    ifstream archivo(nombreArchivo, ios::binary);
+    if (!archivo){
+        cout << "No se encontro archivo previo de pedidos. Iniciando con cola vacia." << endl;
+        return;
+    }
+
+    while (!estaVacia()){
+        NodoPedido* temp = front;
+        front = front->siguiente;
+        delete temp;
+    }
+    front = rear = nullptr;
+    contador = 0;
+    
+    archivo.read(reinterpret_cast<char*>(&numPedidoActual), sizeof(numPedidoActual));
+    
+    int cantidadPedidos;
+    archivo.read(reinterpret_cast<char*>(&cantidadPedidos), sizeof(cantidadPedidos));
+    
+    for(int i = 0; i < cantidadPedidos; i++){
+        Pedido p;
+        p.cargarDesdeArchivo(archivo);
+        
+        NodoPedido* nuevo = new NodoPedido(p);
+        if (estaVacia()){
+            front = rear = nuevo;
+        } else {
+            rear->siguiente = nuevo;
+            nuevo->anterior = rear;
+            rear = nuevo;
+        }
+        contador++;
+    }
+    
+    archivo.close();
+    cout << "Cola de pedidos cargada exitosamente desde (" << nombreArchivo << ")." << endl;
+}
+
 

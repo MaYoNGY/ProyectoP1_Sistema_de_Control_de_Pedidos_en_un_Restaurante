@@ -13,10 +13,14 @@ class MenuSistema{
 		
 	public:
 		MenuSistema();
+		~MenuSistema();
 		void mostrarMenuRestaurante();
 		void mostrarMenuPedidos();
 		void mostrarMenuHistorial();
 		void mostrarMenuSistema();
+		
+		void cargarDatos();
+		void guardarDatos();
 	
 };
 

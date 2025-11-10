@@ -32,6 +32,9 @@ class Historial{
 		Pedido desapilarPedido();
 		void mostrarHistorial();
 		double calcularIngresosRecursivo();
+		
+		void guardarHistorial(const string& nombreArchivo);
+		void cargarHistorial(const string& nombreArchivo);
 };
 
 #endif

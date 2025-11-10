@@ -2,6 +2,7 @@
 #define PLATO_H
 
 #include <string>
+#include <fstream>
 using namespace std;
 
 typedef string NombrePlato;
@@ -49,6 +50,9 @@ class Plato{
 		
 		friend bool operator>(const Plato& a, const Plato& b);
 		friend bool operator<(const Plato& a, const Plato& b);
+		
+		void guardarEnArchivo(ofstream& archivo) const;
+		void cargarDesdeArchivo(ifstream& archivo);
 };
 
 #endif

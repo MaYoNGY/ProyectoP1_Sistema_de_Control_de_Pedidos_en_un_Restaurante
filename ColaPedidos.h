@@ -42,6 +42,12 @@ class ColaPedidos{
         bool cancelarPedido(NombreCliente cliente);
         void mostrarPedidos() const;
         float calcularIngresosEsperados() const;
+        int getNumPedidoActual() const;
+        void setNumPedidoActual(int num);
+        
+        void guardarCola(const string& nombreArchivo);
+        void cargarCola(const string& nombreArchivo);
+        
         
 
 };
