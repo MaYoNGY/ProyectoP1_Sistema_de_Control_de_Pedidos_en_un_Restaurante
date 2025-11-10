@@ -6,6 +6,12 @@ Historial::Historial(){
 	tope = nullptr;
 }
 
+Historial::~Historial(){
+    while(!pilaVacia()){
+        desapilarPedido();
+    }
+}
+
 bool Historial::pilaVacia(){
 	return tope == nullptr;
 }

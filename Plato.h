@@ -27,22 +27,22 @@ class Plato{
 		
 		Plato(NombrePlato nom, CodigoPlato co, PrecioPlato pre, CategoriaPlato cat, CantidadPlatos can);
 				
-		NombrePlato getNombre();
+		NombrePlato getNombre() const;
 		void setNombre(NombrePlato n);
 		
-		CodigoPlato getCodigo();
+		CodigoPlato getCodigo() const;
 		void setCodigo(CodigoPlato c);
 		
-		PrecioPlato getPrecio();
+		PrecioPlato getPrecio() const;
 		void setPrecio(PrecioPlato p);
 		
-		CategoriaPlato getCategoria();
+		CategoriaPlato getCategoria() const;
 		void setCategoria(CategoriaPlato ca);
 		
-		PlatoDisponible getDisponible();
+		PlatoDisponible getDisponible() const;
 		void setDisponible(PlatoDisponible d);
 
-		CantidadPlatos getCantidad();
+		CantidadPlatos getCantidad() const;
 		void setCantidad(CantidadPlatos cant);
 		
 		void mostrarPlato();

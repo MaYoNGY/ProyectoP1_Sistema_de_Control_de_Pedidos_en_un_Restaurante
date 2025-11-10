@@ -38,15 +38,15 @@ void Pedido::setTotal(TotalPagar t){
     total = t;
 }
 
-vector<pair<Plato*, unsigned int>> Pedido::getPlatosPedidos() const{
+vector<pair<Plato, unsigned int>> Pedido::getPlatosPedidos() const{
 	return platosPedidos;
 }
 
-void Pedido::agregarPlato(Plato* plato, CantidadPlatosPedidos cantidad) {
-    if (plato == nullptr || cantidad == 0) return;
+void Pedido::agregarPlato(Plato& plato, CantidadPlatosPedidos cantidad) {
+    if (cantidad == 0) return;
 
     platosPedidos.push_back({plato, cantidad});
-    total += plato->getPrecio() * cantidad;
+    total += plato.getPrecio() * cantidad;
 }
 
 void Pedido::mostrarPedido() const{
@@ -56,13 +56,13 @@ void Pedido::mostrarPedido() const{
     cout << "--------------------------------" << endl;
 
     for (const auto& par : platosPedidos) {
-        Plato* p = par.first;
+        const Plato& p = par.first;
         CantidadPlatosPedidos cant = par.second;
 
-        cout << "Plato: " << p->getNombre() << endl;
-        cout << "Precio: $" << p->getPrecio() << endl;
+        cout << "Plato: " << p.getNombre() << endl;
+        cout << "Precio: $" << p.getPrecio() << endl;
         cout << "Cantidad: " << cant << endl;
-        cout << "Subtotal: $" << p->getPrecio() * cant << endl;
+        cout << "Subtotal: $" << p.getPrecio() * cant << endl;
         cout << "--------------------------------" << endl;
     }
     cout << "--------------------------------" << endl;

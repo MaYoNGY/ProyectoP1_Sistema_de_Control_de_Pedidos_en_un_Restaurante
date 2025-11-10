@@ -3,10 +3,10 @@
 #include <string>
 using namespace std;
 
-MenuSistema::MenuSistema(): m(), p(), c(&m), h(){}
+MenuSistema::MenuSistema(): m(), c(&m), h(){}
 
 void MenuSistema::mostrarMenuRestaurante(){
-	int opc;
+	int opcMR;
 	do{
 		cout << endl;
 		cout << "----- Menu del restaurante -----" << endl;
@@ -19,9 +19,9 @@ void MenuSistema::mostrarMenuRestaurante(){
 		cout << "7. Comparar precios" << endl;
 		cout << "8. Regresar el menu principal" << endl;
 		cout << "Ingrese la opcion que desee: ";
-		cin >> opc;
+		cin >> opcMR;
 		
-		switch(opc){
+		switch(opcMR){
 			case 1:
 				m.registrarPlato();
 				break;
@@ -66,11 +66,11 @@ void MenuSistema::mostrarMenuRestaurante(){
 				
 		}
 		
-	}while(opc != 8);
+	}while(opcMR != 8);
 }
 
 void MenuSistema::mostrarMenuPedidos(){
-	int opc;
+	int opcMP;
 	do{
 		cout << endl;
 		cout << "----- Menu de Pedidos -----" << endl;
@@ -80,9 +80,9 @@ void MenuSistema::mostrarMenuPedidos(){
 		cout << "4. Cancelar pedido" << endl;
 		cout << "5. Regresar al menu principal" << endl;
 		cout << "Ingrese la opcion que desee: ";
-		cin >> opc;
+		cin >> opcMP;
 		
-		switch(opc){
+		switch(opcMP){
 			case 1:{
 				NombreCliente cliente;
 				cin.ignore();
@@ -93,8 +93,12 @@ void MenuSistema::mostrarMenuPedidos(){
 			}
 				
 			case 2:{
-				Pedido entregado = c.atenderPedido();
-				h.apilarPedido(entregado);
+				if(!c.estaVacia()){
+					Pedido entregado = c.atenderPedido();
+					h.apilarPedido(entregado);
+				}else{
+					cout << "No hay pedidos pendientes" << endl;
+				}
 				break;
 			}
 					
@@ -120,11 +124,11 @@ void MenuSistema::mostrarMenuPedidos(){
 				
 		}
 		
-	}while(opc != 5);
+	}while(opcMP != 5);
 }
 
 void MenuSistema::mostrarMenuHistorial(){
-	int opc;
+	int opcMH;
 	do{
 		cout << endl;
 		cout << "----- Menu del historial -----" << endl;
@@ -132,9 +136,9 @@ void MenuSistema::mostrarMenuHistorial(){
 		cout << "2. Desasher ultimo pedido" << endl;
 		cout << "3. Regresar al menu principal" << endl;
 		cout << "Ingrese la opcion que desee: ";
-		cin >> opc;
+		cin >> opcMH;
 		
-		switch(opc){
+		switch(opcMH){
 			case 1:
 				h.mostrarHistorial();
 				h.calcularIngresosRecursivo();
@@ -157,11 +161,11 @@ void MenuSistema::mostrarMenuHistorial(){
 				
 		}
 		
-	}while(opc != 3);
+	}while(opcMH != 3);
 }
 
 void MenuSistema::mostrarMenuSistema(){
-	int opc;
+	int opcMs;
 	do{
 		cout << endl;
 		cout << "----- Menu del sistema de restaurante -----" << endl;
@@ -170,9 +174,9 @@ void MenuSistema::mostrarMenuSistema(){
 		cout << "3. Historial" << endl;
 		cout << "4. Salir del programa" << endl;
 		cout << "Ingrese la opcion que desee: ";
-		cin >> opc;
+		cin >> opcMs;
 		
-		switch(opc){
+		switch(opcMs){
 			case 1:
 				mostrarMenuRestaurante();
 				break;
@@ -194,6 +198,6 @@ void MenuSistema::mostrarMenuSistema(){
 				
 		}
 		
-	}while(opc != 4);
+	}while(opcMs != 4);
 }
 

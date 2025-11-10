@@ -8,7 +8,6 @@ using namespace std;
 class MenuSistema{
 	private:
 		MenuRestaurante m;
-		Plato p;
 		ColaPedidos c;
 		Historial h;
 		

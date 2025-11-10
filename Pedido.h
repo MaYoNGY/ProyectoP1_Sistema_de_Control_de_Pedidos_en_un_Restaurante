@@ -16,7 +16,7 @@ class Pedido{
         NumeroPedido numPedido;
         NombreCliente cliente;
         TotalPagar total;
-        vector<pair<Plato*, CantidadPlatosPedidos>> platosPedidos;
+        vector<pair<Plato, CantidadPlatosPedidos>> platosPedidos;
 
     public:
  
@@ -33,9 +33,9 @@ class Pedido{
         TotalPagar getTotal() const;
         void setTotal(TotalPagar t);
         
-        vector<pair<Plato*, unsigned int>> getPlatosPedidos() const;
+        vector<pair<Plato, unsigned int>> getPlatosPedidos() const;
         
-        void agregarPlato(Plato* plato, CantidadPlatosPedidos cantidad);
+        void agregarPlato(Plato& plato, CantidadPlatosPedidos cantidad);
         
         void mostrarPedido() const;
         

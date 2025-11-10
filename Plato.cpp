@@ -20,7 +20,7 @@ Plato::Plato(NombrePlato nom, CodigoPlato co, PrecioPlato pre, CategoriaPlato ca
 	disponible = (can > 0);
 }
 
-NombrePlato Plato::getNombre(){
+NombrePlato Plato::getNombre() const{
 	return nombre;
 }
 
@@ -28,7 +28,7 @@ void Plato::setNombre(NombrePlato n){
 	nombre = n;
 }
 
-CodigoPlato Plato::getCodigo(){
+CodigoPlato Plato::getCodigo() const{
 	return codigo;
 }
 
@@ -36,7 +36,7 @@ void Plato::setCodigo(CodigoPlato c){
 	codigo = c;
 }
 
-PrecioPlato Plato::getPrecio(){
+PrecioPlato Plato::getPrecio() const{
 	return precio;
 }
 
@@ -44,7 +44,7 @@ void Plato::setPrecio(PrecioPlato p){
 	precio = p;
 }
 
-CategoriaPlato Plato::getCategoria(){
+CategoriaPlato Plato::getCategoria() const{
 	return categoria;
 }
 
@@ -52,7 +52,7 @@ void Plato::setCategoria(CategoriaPlato ca){
 	categoria = ca;
 }
 
-PlatoDisponible Plato::getDisponible(){
+PlatoDisponible Plato::getDisponible() const{
 	return disponible;
 }
 
@@ -60,7 +60,7 @@ void Plato::setDisponible(PlatoDisponible d){
 	disponible = d;
 }
 
-CantidadPlatos Plato::getCantidad(){
+CantidadPlatos Plato::getCantidad() const{
 	return cantidad;
 }
 

@@ -26,6 +26,7 @@ class Historial{
 		
 	public:
 		Historial();
+		~Historial();
 		bool pilaVacia();
 		void apilarPedido(Pedido p);
 		Pedido desapilarPedido();

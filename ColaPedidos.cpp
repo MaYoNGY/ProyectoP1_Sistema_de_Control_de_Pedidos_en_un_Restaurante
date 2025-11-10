@@ -53,15 +53,31 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
 
     Pedido pe(numPedidoActual++, cliente);
 
-    for(int i = 0; i < n; i++){
+    for(unsigned int i = 0; i < n; i++){
         
         cout << "Ingrese el codigo del plato #" << (i + 1) << ": ";
         cin >> codigo;
+
+        bool codigoDuplicado = false;
+        vector<pair<Plato, unsigned int>> platosActuales = pe.getPlatosPedidos();
+        for(const auto& par : platosActuales){
+            if(par.first.getCodigo() == codigo){
+                codigoDuplicado = true;
+                break;
+            }
+        }
+
+        if(codigoDuplicado){
+            cout << "Este plato ya fue agregado al pedido!!!" << endl;
+            i--;
+            continue;
+        }
 
         Plato* p = m->buscarPlatoCo(codigo);
 
         if(p == nullptr){
             cout << "Codigo de plato no encontrado" << endl;
+            i--;
             continue;
         }
 
@@ -98,10 +114,13 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
         }while(!cantidadValida);
 
         if(agregar){
-        	pe.agregarPlato(p, cantidad);
+        	pe.agregarPlato(*p, cantidad);
             p->setCantidad(p->getCantidad() - cantidad);
             cout << "Plato (" << p->getNombre() << ") agregado al pedido.\n";
         }
+        
+        cantidadValida = false;
+        agregar = true;
     }
 
     if(pe.getTotal() == 0){
@@ -141,10 +160,6 @@ void ColaPedidos::agregarPedido(const Pedido& p){
 }
 
 Pedido ColaPedidos::atenderPedido(){
-    if(estaVacia()){
-    	cout << "No hay pedidos pendientes" << endl;
-        return Pedido();
-    }
     NodoPedido* temp = front;
     Pedido pedidoAtendido = temp->dato;
     cout << "----- Atendiendo pedido #" << temp->dato.getNumeroPedido() << " -----" << endl;
@@ -176,7 +191,8 @@ bool ColaPedidos::cancelarPedido(NombreCliente cliente) {
         if (actual->dato.getCliente() == cliente){
             encontrado = true;
 
-            cout << endl << "Pedido del cliente (" << cliente << ") encontrado, desea cancelarlo? (S/N): ";
+            cout << endl;
+            cout << "Pedido del cliente (" << cliente << ") encontrado, desea cancelarlo? (S/N): ";
             char opcion;
             cin >> opcion;
 
@@ -185,11 +201,14 @@ bool ColaPedidos::cancelarPedido(NombreCliente cliente) {
                 return false;
             }
 
-            vector<pair<Plato*, unsigned int>> platos = actual->dato.getPlatosPedidos();
+            vector<pair<Plato, unsigned int>> platos = actual->dato.getPlatosPedidos();
             for(auto& par : platos){
-                Plato* p = par.first;
+                Plato& p = par.first;
                 int cantidad = par.second;
-                p->setCantidad(p->getCantidad() + cantidad);
+                Plato* platoEnMenu = m->buscarPlatoCo(p.getCodigo());
+                if(platoEnMenu != nullptr){
+                    platoEnMenu->setCantidad(platoEnMenu->getCantidad() + cantidad);
+                }
             }
 
             if(actual == front && actual == rear){
@@ -240,15 +259,17 @@ void ColaPedidos::mostrarPedidos() const{
 }
 
 float ColaPedidos::calcularIngresosEsperados() const{
-	float totalEsperado = 0;
+
+    Pedido acumulador;
     NodoPedido* aux = front;
 
-    while (aux != nullptr) {
-        totalEsperado += aux->dato.getTotal();
+    while(aux != nullptr){
+        float totalAcumulado = acumulador + aux->dato;
+        acumulador.setTotal(totalAcumulado);
         aux = aux->siguiente;
     }
 
-    cout << "Ingresos esperados de pedidos: $" << totalEsperado << endl;
-    return totalEsperado;
+    cout << "Ingresos esperados de pedidos: $" << acumulador.getTotal() << endl;
+    return acumulador.getTotal();
 }
 
