@@ -283,14 +283,14 @@ float ColaPedidos::calcularIngresosEsperados() const{
 }
 
 void ColaPedidos::guardarCola(const string& nombreArchivo){
-    ofstream archivo(nombreArchivo, ios::binary);
+    ofstream archivo(nombreArchivo);
     if (!archivo){
         cout << "Error al abrir el archivo para guardar la cola de pedidos." << endl;
         return;
     }
     
-    archivo.write(reinterpret_cast<const char*>(&numPedidoActual), sizeof(numPedidoActual));
-    archivo.write(reinterpret_cast<const char*>(&contador), sizeof(contador));
+    archivo << numPedidoActual << endl;
+    archivo << contador << endl;
     
     NodoPedido* temp = front;
     while (temp){
@@ -303,7 +303,7 @@ void ColaPedidos::guardarCola(const string& nombreArchivo){
 }
 
 void ColaPedidos::cargarCola(const string& nombreArchivo){
-    ifstream archivo(nombreArchivo, ios::binary);
+    ifstream archivo(nombreArchivo);
     if (!archivo){
         cout << "No se encontro archivo previo de pedidos. Iniciando con cola vacia." << endl;
         return;
@@ -317,10 +317,12 @@ void ColaPedidos::cargarCola(const string& nombreArchivo){
     front = rear = nullptr;
     contador = 0;
     
-    archivo.read(reinterpret_cast<char*>(&numPedidoActual), sizeof(numPedidoActual));
+    archivo >> numPedidoActual;
+    archivo.ignore();
     
     int cantidadPedidos;
-    archivo.read(reinterpret_cast<char*>(&cantidadPedidos), sizeof(cantidadPedidos));
+    archivo >> cantidadPedidos;
+    archivo.ignore();
     
     for(int i = 0; i < cantidadPedidos; i++){
         Pedido p;

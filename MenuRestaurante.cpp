@@ -268,7 +268,7 @@ void MenuRestaurante::compararPrecios(){
 }
 
 void MenuRestaurante::guardarMenu(const string& nombreArchivo){
-    ofstream archivo(nombreArchivo, ios::binary);
+    ofstream archivo(nombreArchivo);
     if(!archivo){
         cout << "Error al abrir el archivo para guardar el menu." << endl;
         return;
@@ -281,7 +281,7 @@ void MenuRestaurante::guardarMenu(const string& nombreArchivo){
         temp = temp->siguiente;
     }
     
-    archivo.write(reinterpret_cast<const char*>(&contador), sizeof(contador));
+    archivo << contador << endl;
     
     temp = cabeza;
     while(temp){
@@ -294,7 +294,7 @@ void MenuRestaurante::guardarMenu(const string& nombreArchivo){
 }
 
 void MenuRestaurante::cargarMenu(const string& nombreArchivo){
-    ifstream archivo(nombreArchivo, ios::binary);
+    ifstream archivo(nombreArchivo);
     if(!archivo){
         cout << "No se encontro archivo previo del menu. Iniciando con menu vacio." << endl;
         return;
@@ -310,7 +310,8 @@ void MenuRestaurante::cargarMenu(const string& nombreArchivo){
     cola = nullptr;
     
     int contador;
-    archivo.read(reinterpret_cast<char*>(&contador), sizeof(contador));
+    archivo >> contador;
+    archivo.ignore();
     
     for(int i = 0; i < contador; i++){
         Plato p;

@@ -11,21 +11,21 @@ MenuSistema::~MenuSistema() {
 	guardarDatos();
 }
 
-void MenuSistema::cargarDatos(){
+void MenuSistema::cargarDatos() {
 	cout << "----- Cargando datos del sistema -----" << endl;
-	m.cargarMenu("menu.dat");
-	c.cargarCola("pedidos.dat");
-	h.cargarHistorial("historial.dat");
+	m.cargarMenu("menu.txt");
+	c.cargarCola("pedidos.txt");
+	h.cargarHistorial("historial.txt");
 	cout << "---------------------------------------" << endl;
 	cout << endl;
 }
 
-void MenuSistema::guardarDatos(){
+void MenuSistema::guardarDatos() {
 	cout << endl;
 	cout << "----- Guardando datos del sistema -----" << endl;
-	m.guardarMenu("menu.dat");
-	c.guardarCola("pedidos.dat");
-	h.guardarHistorial("historial.dat");
+	m.guardarMenu("menu.txt");
+	c.guardarCola("pedidos.txt");
+	h.guardarHistorial("historial.txt");
 	cout << "---------------------------------------" << endl;
 }
 

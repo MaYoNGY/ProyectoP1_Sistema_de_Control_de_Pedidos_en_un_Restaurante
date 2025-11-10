@@ -66,7 +66,7 @@ double Historial::calcularIngresosRecursivo(){
 }
 
 void Historial::guardarHistorial(const string& nombreArchivo){
-    ofstream archivo(nombreArchivo, ios::binary);
+    ofstream archivo(nombreArchivo);
     if(!archivo){
         cout << "Error al abrir el archivo para guardar el historial." << endl;
         return;
@@ -80,7 +80,7 @@ void Historial::guardarHistorial(const string& nombreArchivo){
         temp = temp->siguiente;
     }
     
-    archivo.write(reinterpret_cast<const char*>(&contador), sizeof(contador));
+    archivo << contador << endl;
     
     // Guardar en orden (del tope hacia abajo)
     temp = tope;
@@ -94,7 +94,7 @@ void Historial::guardarHistorial(const string& nombreArchivo){
 }
 
 void Historial::cargarHistorial(const string& nombreArchivo){
-    ifstream archivo(nombreArchivo, ios::binary);
+    ifstream archivo(nombreArchivo);
     if(!archivo){
         cout << "No se encontro archivo previo del historial. Iniciando con historial vacio." << endl;
         return;
@@ -109,7 +109,8 @@ void Historial::cargarHistorial(const string& nombreArchivo){
     tope = nullptr;
     
     int contador;
-    archivo.read(reinterpret_cast<char*>(&contador), sizeof(contador));
+    archivo >> contador;
+    archivo.ignore();
     
     // Cargar pedidos en orden inverso para mantener el orden original de la pila
     stack<Pedido> tempStack;

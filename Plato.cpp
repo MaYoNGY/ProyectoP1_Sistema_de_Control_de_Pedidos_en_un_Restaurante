@@ -93,35 +93,24 @@ bool operator<(const Plato& a, const Plato& b){
 }
 
 void Plato::guardarEnArchivo(ofstream& archivo) const{
-    size_t len = nombre.length();
-    archivo.write(reinterpret_cast<const char*>(&len), sizeof(len));
-    archivo.write(nombre.c_str(), len);
-    
-    archivo.write(reinterpret_cast<const char*>(&codigo), sizeof(codigo));
-    archivo.write(reinterpret_cast<const char*>(&precio), sizeof(precio));
-    
-    len = categoria.length();
-    archivo.write(reinterpret_cast<const char*>(&len), sizeof(len));
-    archivo.write(categoria.c_str(), len);
-    
-    archivo.write(reinterpret_cast<const char*>(&cantidad), sizeof(cantidad));
-    archivo.write(reinterpret_cast<const char*>(&disponible), sizeof(disponible));
+    archivo << nombre << endl;
+    archivo << codigo << endl;
+    archivo << precio << endl;
+    archivo << categoria << endl;
+    archivo << cantidad << endl;
+    archivo << disponible << endl;
 }
 
 void Plato::cargarDesdeArchivo(ifstream& archivo){
-    size_t len;
-    archivo.read(reinterpret_cast<char*>(&len), sizeof(len));
-    nombre.resize(len);
-    archivo.read(&nombre[0], len);
-    
-    archivo.read(reinterpret_cast<char*>(&codigo), sizeof(codigo));
-    archivo.read(reinterpret_cast<char*>(&precio), sizeof(precio));
-    
-    archivo.read(reinterpret_cast<char*>(&len), sizeof(len));
-    categoria.resize(len);
-    archivo.read(&categoria[0], len);
-    
-    archivo.read(reinterpret_cast<char*>(&cantidad), sizeof(cantidad));
-    archivo.read(reinterpret_cast<char*>(&disponible), sizeof(disponible));
+    getline(archivo, nombre);
+    archivo >> codigo;
+    archivo.ignore();
+    archivo >> precio;
+    archivo.ignore();
+    getline(archivo, categoria);
+    archivo >> cantidad;
+    archivo.ignore();
+    archivo >> disponible;
+    archivo.ignore();
 }
 
