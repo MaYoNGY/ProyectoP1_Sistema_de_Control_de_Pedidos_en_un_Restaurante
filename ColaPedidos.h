@@ -1,6 +1,7 @@
 #ifndef COLAPEDIDOS_H
 #define COLAPEDIDOS_H
 #include "Pedido.h"
+#include "Validacion.h"
 #include "MenuRestaurante.h"
 
 using namespace std;
@@ -22,9 +23,12 @@ struct NodoPedido{
 class ColaPedidos{
 	
     private:
-    	MenuRestaurante* m;
         NodoPedido* front;
         NodoPedido* rear;
+        
+        MenuRestaurante* m;
+    	Validacion v;
+        
         int numPedidoActual;
         int contador;
 

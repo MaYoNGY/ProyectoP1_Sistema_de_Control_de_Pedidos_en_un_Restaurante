@@ -48,12 +48,13 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
         cout << "El menu esta vacio" << endl;
         return;
     }
-
+	
+	m->mostrarMenu();
+	
     cout << "Creando pedido para " << cliente << endl;
 
     unsigned int n;
-    cout << "Cuantos tipos de platos desea ordenar?: ";
-    cin >> n;
+    n = v.pedirCanTipoPlato();
 
     if(n <= 0){
         cout << "Debe ingresar al menos un tipo de plato!!!" << endl;
@@ -64,8 +65,8 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
 
     for(unsigned int i = 0; i < n; i++){
         
-        cout << "Ingrese el codigo del plato #" << (i + 1) << ": ";
-        cin >> codigo;
+        cout << "Ingrese el codigo del plato #" << (i + 1) << endl;
+        codigo = v.pedirCodigo();
 
         bool codigoDuplicado = false;
         vector<pair<Plato, unsigned int>> platosActuales = pe.getPlatosPedidos();
@@ -91,22 +92,21 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
         }
 
         do{
-            cout << "Cuantos platos desea pedir?: ";
-            cin >> cantidad;
+            cantidad = v.pedirCantidadPlato();
 
             if(cantidad > p->getCantidad()){
                 cout << "Solo hay " << p->getCantidad() << " disponibles" << endl;
 
                 char opcion;
                 cout << "Desea pedir esa cantidad maxima disponible (S/N)? ";
-                cin >> opcion;
+                opcion = v.pedirConfirmacion();
 
                 if(opcion == 'S' || opcion == 's'){
                     cantidad = p->getCantidad();
                     cantidadValida = true;
                 }else{
                     cout << "Desea ingresar otra cantidad (S/N)? ";
-                    cin >> opcion;
+                    opcion = v.pedirConfirmacion();
 
                     if(opcion == 'S' || opcion == 's'){
                         cantidadValida = false;
@@ -169,6 +169,11 @@ void ColaPedidos::agregarPedido(const Pedido& p){
 }
 
 Pedido ColaPedidos::atenderPedido(){
+	if(estaVacia()){
+		cout << "No hay pedidos por atender " << endl;
+		return Pedido();
+	}
+	
     NodoPedido* temp = front;
     Pedido pedidoAtendido = temp->dato;
     cout << "----- Atendiendo pedido #" << temp->dato.getNumeroPedido() << " -----" << endl;
@@ -203,7 +208,7 @@ bool ColaPedidos::cancelarPedido(NombreCliente cliente){
             cout << endl;
             cout << "Pedido del cliente (" << cliente << ") encontrado, desea cancelarlo? (S/N): ";
             char opcion;
-            cin >> opcion;
+            opcion = v.pedirConfirmacion();
 
             if(opcion != 'S' && opcion != 's'){
                 cout << "Cancelacion abortada por el usuario" << endl;

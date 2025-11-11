@@ -5,6 +5,7 @@ using namespace std;
 
 MenuRestaurante::MenuRestaurante(){ 
     cabeza = nullptr;
+    cola = nullptr;
 }
 
 MenuRestaurante::~MenuRestaurante(){ 
@@ -13,6 +14,7 @@ MenuRestaurante::~MenuRestaurante(){
         cabeza = cabeza->siguiente;
         delete temp;
     }
+    cola = nullptr;
 }
 
 void MenuRestaurante::registrarPlato(){ //Insercion desde el inicio
@@ -27,9 +29,7 @@ void MenuRestaurante::registrarPlato(){ //Insercion desde el inicio
 	bool codigoRepetido;
     
     cout << endl;
-	cin.ignore();
-	cout << "Ingrese el nombre del plato: ";
-	getline(cin, nombre);
+	nombre = v.pedirNombrePlato();
     
     while(actual){
         if(actual->dato.getNombre() == nombre){
@@ -50,8 +50,7 @@ void MenuRestaurante::registrarPlato(){ //Insercion desde el inicio
     do{
 	    codigoRepetido = false;
 	
-	    cout << "Ingrese el codigo del plato: ";
-	    cin >> codigo;
+	    codigo = v.pedirCodigo();
 	
 	    NodoDoble* actual = cabeza;
 	    while (actual) {
@@ -64,16 +63,11 @@ void MenuRestaurante::registrarPlato(){ //Insercion desde el inicio
 	    }
 	}while(codigoRepetido);
     	
-	cout << "Ingrese el precio del plato: ";
-	cin >> precio;
+	precio = v.pedirPrecio();
 	
-	cin.ignore();
-	
-	cout << "Ingrese la categoria del plato: ";
-	getline(cin, categoria); 
+	categoria = v.pedirCategoria();
 
-    cout << "Cuantos platos desea registrar?: ";
-    cin >> cantidad;
+    cantidad = v.pedirCantidadPlato();
 
     Plato p(nombre, codigo, precio, categoria, cantidad);
     
@@ -99,9 +93,7 @@ NodoDoble* MenuRestaurante::buscarPlato(){ //Busqueda desde el inicio
     NombrePlato nombre;
     
     cout << endl;
-	cin.ignore();
-	cout << "Ingrese el nombre del plato: ";
-	getline(cin, nombre);
+	nombre = v.pedirNombrePlato();
     
     while(actual != nullptr){
         if(actual->dato.getNombre() == nombre){
@@ -243,10 +235,8 @@ void MenuRestaurante::compararPrecios(){
         return;
     }
 	NombrePlato n1, n2;
-	cout << "Ingrese el nombre del plato #1: ";
-	cin >> n1;
-	cout << "Ingrese el nombre del plato #2: ";
-	cin >> n2;
+	n1 = v.pedirNombrePlato();
+	n2 = v.pedirNombrePlato();
 	
 	Plato* p1 = buscarPlatoNombre(n1);
 	Plato* p2 = buscarPlatoNombre(n2);

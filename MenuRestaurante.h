@@ -2,6 +2,7 @@
 #define MENURESTAURANTE_H
 
 #include "Plato.h"
+#include "Validacion.h"
 #include <iostream>
 
 //Lista enlazada doble
@@ -21,6 +22,8 @@ class MenuRestaurante{
 	private:
 		NodoDoble* cabeza;
 		NodoDoble* cola;
+		
+		Validacion v;
 		
 		int contarCategoriaRecursivo(NodoDoble* nodo, CategoriaPlato categoriaBuscada) {
 	    if (nodo == nullptr) {

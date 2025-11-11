@@ -1,7 +1,6 @@
 #include "Historial.h"
 #include <iostream>
 #include <fstream>
-#include <stack>
 using namespace std;
 
 Historial::Historial(){
@@ -72,7 +71,6 @@ void Historial::guardarHistorial(const string& nombreArchivo){
         return;
     }
     
-    // Contar elementos
     int contador = 0;
     NodoPila* temp = tope;
     while(temp){
@@ -82,7 +80,6 @@ void Historial::guardarHistorial(const string& nombreArchivo){
     
     archivo << contador << endl;
     
-    // Guardar en orden (del tope hacia abajo)
     temp = tope;
     while (temp){
         temp->dato.guardarEnArchivo(archivo);
@@ -93,43 +90,48 @@ void Historial::guardarHistorial(const string& nombreArchivo){
     cout << "Historial guardado exitosamente en (" << nombreArchivo << ")." << endl;
 }
 
-void Historial::cargarHistorial(const string& nombreArchivo){
+void Historial::cargarHistorial(const string& nombreArchivo) {
     ifstream archivo(nombreArchivo);
-    if(!archivo){
+    if (!archivo) {
         cout << "No se encontro archivo previo del historial. Iniciando con historial vacio." << endl;
         return;
     }
-    
-    // Limpiar historial actual
-    while(!pilaVacia()){
+
+    while (!pilaVacia()) {
         NodoPila* temp = tope;
         tope = tope->siguiente;
         delete temp;
     }
     tope = nullptr;
-    
+
     int contador;
     archivo >> contador;
     archivo.ignore();
-    
-    // Cargar pedidos en orden inverso para mantener el orden original de la pila
-    stack<Pedido> tempStack;
-    for(int i = 0; i < contador; i++){
+
+    NodoPila* pilaTemp = nullptr;
+
+    for (int i = 0; i < contador; i++) {
         Pedido p;
         p.cargarDesdeArchivo(archivo);
-        tempStack.push(p);
-    }
-    
-    // Apilar en orden correcto
-    while(!tempStack.empty()){
-        Pedido p = tempStack.top();
-        tempStack.pop();
-        
+
         NodoPila* nuevo = new NodoPila(p);
+        nuevo->siguiente = pilaTemp;
+        pilaTemp = nuevo;
+    }
+
+
+    while (pilaTemp != nullptr) {
+        NodoPila* temp = pilaTemp;
+        pilaTemp = pilaTemp->siguiente;
+
+        NodoPila* nuevo = new NodoPila(temp->dato);
         nuevo->siguiente = tope;
         tope = nuevo;
+
+        delete temp; 
     }
-    
+
     archivo.close();
     cout << "Historial cargado exitosamente desde (" << nombreArchivo << ")." << endl;
 }
+

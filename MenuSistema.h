@@ -3,11 +3,13 @@
 
 #include "ColaPedidos.h"
 #include "Historial.h"
+#include "Validacion.h"
 using namespace std;
 
 class MenuSistema{
 	private:
 		MenuRestaurante m;
+		Validacion v;
 		ColaPedidos c;
 		Historial h;
 		
