@@ -21,7 +21,7 @@ string Validacion::pedirNombrePlato(){
 					nombrePlato.pop_back();
 					cout << "\b \b";
 				}
-			}else if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == ' ')){
+			}else if((c >= 'a' && c <= 'z') || (c == ' ')){
 				nombrePlato += c;
 				cout << c;
 			}
@@ -123,7 +123,7 @@ string Validacion::pedirCategoria(){
                     categoria.pop_back();
                     cout << "\b \b";
                 }
-            }else if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == ' ')){
+            }else if((c >= 'a' && c <= 'z') || (c == ' ')){
                 categoria += c;
                 cout << c;
             }
@@ -187,7 +187,7 @@ string Validacion::pedirNombreCliente(){
                     nombreCliente.pop_back();
                     cout << "\b \b";
                 }
-            }else if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == ' ')){
+            }else if((c >= 'a' && c <= 'z') || (c == ' ')){
                 nombreCliente += c;
                 cout << c;
             }
@@ -225,7 +225,7 @@ unsigned int Validacion::pedirCanTipoPlato(){
             }
         }
         if(cantidad.empty()){
-            cout << "La cantidad no puede estar vacia. Intente de nuevo..." << endl;
+            cout << "La cantidad no puede estar vacia, intente de nuevo..." << endl;
         }
     }while(cantidad.empty());
 

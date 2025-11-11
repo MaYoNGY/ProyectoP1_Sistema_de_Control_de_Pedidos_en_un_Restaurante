@@ -36,12 +36,11 @@ void MenuRestaurante::registrarPlato(){ //Insercion desde el inicio
             cout << endl;
             cout << "El plato ya existe en el menu. Actualizando cantidad..." << endl;
 
-            cout << "Cuantos platos desea registrar?: ";
-	        cin >> cantidad;
+            cantidad = v.pedirCantidadPlato();
 
             Plato adicional(nombre, actual->dato.getCodigo(), actual->dato.getPrecio(), actual->dato.getCategoria(), actual->dato.getCantidad() + cantidad);
             actual->dato = adicional;
-            cout << "Cantidad actualizada" << endl;
+            cout << "Cantidad actualizada..." << endl;
             return;
         }
         actual = actual->siguiente;
@@ -55,7 +54,7 @@ void MenuRestaurante::registrarPlato(){ //Insercion desde el inicio
 	    NodoDoble* actual = cabeza;
 	    while (actual) {
 	        if (codigo == actual->dato.getCodigo()) {
-	            cout << "Codigo ya usado en otro plato, ingrese otro..." << endl;
+	            cout << "Codigo ya usado en otro plato. Ingrese otro..." << endl;
 	            codigoRepetido = true;
 	            break;
 	        }
@@ -112,11 +111,11 @@ NodoDoble* MenuRestaurante::buscarPlato(){ //Busqueda desde el inicio
     return nullptr;
 }
 
-Plato* MenuRestaurante::buscarPlatoCo(CodigoPlato codigo){
+Plato* MenuRestaurante::buscarPlatoCo(CodigoPlato codigo){ //Busqueda de codigo desde el inicio de la lista
     NodoDoble* actual = cabeza;
     
     while(actual){
-        if (actual->dato.getCodigo() == codigo){
+        if(actual->dato.getCodigo() == codigo){
             return &actual->dato;
         }
         actual = actual->siguiente;
@@ -126,7 +125,7 @@ Plato* MenuRestaurante::buscarPlatoCo(CodigoPlato codigo){
     return nullptr;
 }
 
-Plato* MenuRestaurante::buscarPlatoNombre(NombrePlato nombre){
+Plato* MenuRestaurante::buscarPlatoNombre(NombrePlato nombre){ //Busqueda de nombre desde el inicio de la lista
     NodoDoble* actual = cabeza;
     while(actual){
         if(actual->dato.getNombre() == nombre)
@@ -136,7 +135,7 @@ Plato* MenuRestaurante::buscarPlatoNombre(NombrePlato nombre){
     return nullptr;
 }
 
-void MenuRestaurante::eliminarPlatoAgotado(){
+void MenuRestaurante::eliminarPlatoAgotado(){ //Eliminacion de platoAgotado
 	if(!cabeza){
         cout << "El menu esta vacio!!" << endl;
         return;
@@ -145,23 +144,22 @@ void MenuRestaurante::eliminarPlatoAgotado(){
 	cout << endl;
     while(actual){
         if(!actual->dato.getDisponible()){
-    		cout << "Eliminando plato agotado: " << actual->dato.getNombre() << endl;
+    		cout << "Eliminando plato agotado: " << actual->dato.getNombre() << " del menu..." << endl;
 
    			NodoDoble* eliminar = actual;
 
-		    if(actual == cabeza){
+		    if(actual == cabeza){ //elimina cabeza
 		        cabeza = actual->siguiente;
 		        if(cabeza)
 		            cabeza->anterior = nullptr;
 		        else
 		            cola = nullptr;
 		        actual = cabeza;
-		    } 
-		    else if(actual->siguiente == nullptr){
+		    }else if(actual->siguiente == nullptr){ //eliminar cola
 		        cola = actual->anterior;
 		        cola->siguiente = nullptr;
 		        actual = nullptr;
-		    }else{
+		    }else{ //eliminar medio
 		        actual->anterior->siguiente = actual->siguiente;
 		        actual->siguiente->anterior = actual->anterior;
 		        actual = actual->siguiente;
@@ -173,7 +171,7 @@ void MenuRestaurante::eliminarPlatoAgotado(){
     }
 }
 
-void MenuRestaurante::eliminarPlato(){
+void MenuRestaurante::eliminarPlato(){ //eliminar plato especifico
 	if(!cabeza){
         cout << "El menu esta vacio!!" << endl;
         return;
@@ -183,16 +181,15 @@ void MenuRestaurante::eliminarPlato(){
 	
 	if(actual == nullptr) return;
 	
-	cout << "Eliminando plato: " << actual->dato.getNombre() << " del menu..."<< endl;
+	cout << "Eliminando plato: " << actual->dato.getNombre() << " del menu..." << endl;
 	
-	if(actual == cabeza){
+	if(actual == cabeza){ //elimina cabeza
 		cabeza = cabeza->siguiente;
 		if(cabeza != nullptr) cabeza->anterior = nullptr;
-		
-	}else if(actual==cola){
+	}else if(actual==cola){ //elimina cola
 		cola = cola->anterior;
 		if(cola != nullptr) cola->siguiente = nullptr;
-	}else{
+	}else{ //elimina medio
 		actual->anterior->siguiente = actual->siguiente;
 		actual->siguiente->anterior = actual->anterior;
 	}
@@ -206,17 +203,17 @@ void MenuRestaurante::mostrarMenu(){ // mostrar menu desde el inicio
         cout << "El menu esta vacio!!" << endl;
         return;
     }
-
+	cout << "----------------- Menu -----------------" << endl;
     NodoDoble* actual = cabeza;
-    cout << endl << "------ Menu -------" << endl;
     while(actual){
         actual->dato.mostrarPlato();
         actual = actual->siguiente;
     }
-    cout << "---------------" << endl;
+    cout << "----------------------------------------" << endl;
 }
 
-void MenuRestaurante::contarPlatosPorCategoria(CategoriaPlato categoria) {
+
+void MenuRestaurante::contarPlatosPorCategoria(CategoriaPlato categoria){ //uso de la funcion recursiva para contar categorias
 	if(!cabeza){
         cout << "El menu esta vacio!!" << endl;
         return;
@@ -224,12 +221,12 @@ void MenuRestaurante::contarPlatosPorCategoria(CategoriaPlato categoria) {
     cout << "Platos en la categoria (" << categoria << "):" << endl;
     int cantidad = contarCategoriaRecursivo(cabeza, categoria);
      if (cantidad == 0)
-        cout << "No se encontraron platos en esta categoria." << endl;
+        cout << "No se encontraron platos en esta categoria!!" << endl;
     else
         cout << "Total de platos encontrados: " << cantidad << endl;
 }
 
-void MenuRestaurante::compararPrecios(){
+void MenuRestaurante::compararPrecios(){ //comparacion con sobrecarga de operadores
 	if(!cabeza){
         cout << "El menu esta vacio!!" << endl;
         return;
@@ -242,16 +239,16 @@ void MenuRestaurante::compararPrecios(){
 	Plato* p2 = buscarPlatoNombre(n2);
 	
 	if(!p1 || !p2){
-        cout << "Uno o ambos platos no existen en el menu." << endl;
+        cout << "Uno o ambos platos no existen en el menu!!" << endl;
         return;
     }
 
     if(*p1 > *p2){
         cout << "El plato " << p1->getNombre() << " tiene un precio mayor que " 
-             << p2->getNombre() << endl;
+             << p2->getNombre() << "." << endl;
     }else if(*p1 < *p2){
         cout << "El plato " << p2->getNombre() << " tiene un precio mayor que " 
-             << p1->getNombre() << endl;
+             << p1->getNombre() << "." << endl;
     }else{
         cout << "Ambos platos tienen el mismo precio." << endl;
     }

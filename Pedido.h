@@ -17,7 +17,7 @@ class Pedido{
         NumeroPedido numPedido;
         NombreCliente cliente;
         TotalPagar total;
-        vector<pair<Plato, CantidadPlatosPedidos>> platosPedidos;
+        vector<pair<Plato, CantidadPlatosPedidos>> platosPedidos; //lista que guarda pares (plato, cantidad)
 
     public:
  

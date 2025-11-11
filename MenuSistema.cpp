@@ -35,37 +35,44 @@ void MenuSistema::mostrarMenuRestaurante(){
 	do{
 		system("cls");
 		cout << endl;
-		cout << "----- Menu del restaurante -----" << endl;
-		cout << "1. Ingreso de platos" << endl;
-		cout << "2. Busqueda de platos" << endl;
-		cout << "3. Eliminacion de platos agotados" << endl;
-		cout << "4. Eliminar plato del menu" << endl;
-		cout << "5. Mostrar Menu" << endl;
-		cout << "6. Buscar categoria" << endl;
-		cout << "7. Comparar precios" << endl;
-		cout << "8. Regresar el menu principal" << endl;
+		cout << "=============================================" << endl;
+		cout << "|             GESTION DEL MENU              |" << endl;
+		cout << "=============================================" << endl;
+		cout << "|  1. Registro de platos                    |" << endl;
+		cout << "|  2. Busqueda de platos                    |" << endl;
+		cout << "|  3. Eliminacion de platos agotados        |" << endl;
+		cout << "|  4. Eliminar plato del menu 	            |" << endl;
+		cout << "|  5. Mostrar Menu                          |" << endl;
+		cout << "|  6. Buscar categoria                      |" << endl;
+		cout << "|  7. Comparar precios                      |" << endl;
+		cout << "|  8. Regresar                              |" << endl;
+		cout << "=============================================" << endl;
 		opcMR = v.pedirOpc();
 		
 		system("cls");
 		switch(opcMR){
 			case 1:
+				cout << "---------- Registro de plato ----------" << endl;
 				m.registrarPlato();
 				system("pause");
 				break;
 				
 			
 			case 2:
+				cout << "---------- Busqueda de plato ----------" << endl;
 				m.buscarPlato();
 				system("pause");
 				break;
 			
 				
 			case 3:
+				cout << "----- Eliminacion de plato agotado -----" << endl;
 				m.eliminarPlatoAgotado();
 				system("pause");
 				break;
 			
 			case 4:
+				cout << "--------- Eliminacion de plato ---------" << endl;
 				m.eliminarPlato();
 				system("pause");
 				break;
@@ -76,6 +83,7 @@ void MenuSistema::mostrarMenuRestaurante(){
 				break;
 				
 			case 6:{
+				cout << "-------- Busqueda por categoria --------" << endl;
 				CategoriaPlato categoria;
 				categoria = v.pedirCategoria();
 				m.contarPlatosPorCategoria(categoria);
@@ -84,6 +92,7 @@ void MenuSistema::mostrarMenuRestaurante(){
 			}
 			
 			case 7:{
+				cout << "-------- Comparacion de precios --------" << endl;
 				m.compararPrecios();
 				system("pause");
 				break;
@@ -107,17 +116,21 @@ void MenuSistema::mostrarMenuPedidos(){
 	do{
 		system("cls");
 		cout << endl;
-		cout << "----- Menu de Pedidos -----" << endl;
-		cout << "1. Realizar pedido" << endl;
-		cout << "2. Atender pedido" << endl;
-		cout << "3. Mostrar pedidos pendientes" << endl;
-		cout << "4. Cancelar pedido" << endl;
-		cout << "5. Regresar al menu principal" << endl;
+		cout << "=============================================" << endl;
+		cout << "|            GESTION DE PEDIDOS             |" << endl;
+		cout << "=============================================" << endl;
+		cout << "|  1. Realizar pedido                       |" << endl;
+		cout << "|  2. Atender pedido                        |" << endl;
+		cout << "|  3. Mostrar pedidos pendientes            |" << endl;
+		cout << "|  4. Cancelar pedido                       |" << endl;
+		cout << "|  5. Regresar                              |" << endl;
+		cout << "=============================================" << endl;
 		opcMP = v.pedirOpc();
 		system("cls");
 		
 		switch(opcMP){
 			case 1:{
+				cout << "---------- Registro de pedido ----------" << endl;
 				NombreCliente cliente;
 				cliente = v.pedirNombreCliente();
 				c.agregarPedido(cliente);
@@ -126,6 +139,7 @@ void MenuSistema::mostrarMenuPedidos(){
 			}
 				
 			case 2:{
+				cout << "---------- Atencion de pedido ----------" << endl;
 				if(!c.estaVacia()){
 					Pedido entregado = c.atenderPedido();
 					h.apilarPedido(entregado);
@@ -137,11 +151,13 @@ void MenuSistema::mostrarMenuPedidos(){
 			}
 					
 			case 3:
+				cout << "---------- Pedidos en la cola ----------" << endl;
 				c.mostrarPedidos();
 				system("pause");
 				break;
 			
 			case 4:{
+				cout << "-------- Cancelacion de pedido --------" << endl;
 				NombreCliente cliente;
 				cliente = v.pedirNombreCliente();
 				c.cancelarPedido(cliente);
@@ -167,21 +183,26 @@ void MenuSistema::mostrarMenuHistorial(){
 	do{
 		system("cls");
 		cout << endl;
-		cout << "----- Menu del historial -----" << endl;
-		cout << "1. Mostrar Historial" << endl;
-		cout << "2. Desasher ultimo pedido" << endl;
-		cout << "3. Regresar al menu principal" << endl;
+		cout << "=============================================" << endl;
+		cout << "|            HISTORIAL DE ENTREGAS          |" << endl;
+		cout << "=============================================" << endl;
+		cout << "|  1. Mostrar Historial                     |" << endl;
+		cout << "|  2. Desasher ultima entrega               |" << endl;
+		cout << "|  3. Regresar                              |" << endl;
+		cout << "=============================================" << endl;
 		opcMH = v.pedirOpc();
 		system("cls");
 		
 		switch(opcMH){
 			case 1:
+				cout << "---- Historial de pedidos entregados ----" << endl;
 				h.mostrarHistorial();
 				h.calcularIngresosRecursivo();
 				system("pause");
 				break;
 			
 			case 2:{
+				cout << "---- Deshacer ultimo pedido entregado ----" << endl;
 				Pedido ultimo = h.desapilarPedido();
 				if (!ultimo.getCliente().empty()) {
     				c.agregarPedido(ultimo);
@@ -208,11 +229,14 @@ void MenuSistema::mostrarMenuSistema(){
 	do{
 		system("cls");
 		cout << endl;
-		cout << "----- Menu del sistema de restaurante -----" << endl;
-		cout << "1. Menu" << endl;
-		cout << "2. Pedidos" << endl;
-		cout << "3. Historial" << endl;
-		cout << "4. Salir del programa" << endl;
+		cout << "=============================================" << endl;
+		cout << "| SISTEMA DE CONTROL DE PEDIDOS-RESTAURANTE |" << endl;
+		cout << "=============================================" << endl;
+		cout << "|  1. Gestion del menu                      |" << endl;
+		cout << "|  2. Gesition de pedidos                   |" << endl;
+		cout << "|  3. Historial de entregas                 |" << endl;
+		cout << "|  4. Salir del programa                    |" << endl;
+		cout << "=============================================" << endl;
 		opcMs = v.pedirOpc();
 		system("cls");
 		

@@ -17,6 +17,7 @@ class Historial{
 	private:
 		NodoPila* tope;
 		
+	// funcion recursiva
 	double sumarIngresos(NodoPila* nodo){
     	if(nodo == nullptr){
         return 0;

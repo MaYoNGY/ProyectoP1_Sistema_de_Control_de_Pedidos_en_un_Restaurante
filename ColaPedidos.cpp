@@ -45,7 +45,7 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
     bool agregar = true;
 
 	if(m == nullptr){
-        cout << "El menu esta vacio" << endl;
+        cout << "El menu esta vacio!!" << endl;
         return;
     }
 	
@@ -57,7 +57,7 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
     n = v.pedirCanTipoPlato();
 
     if(n <= 0){
-        cout << "Debe ingresar al menos un tipo de plato!!!" << endl;
+        cout << "Debe ingresar al menos un tipo de plato!!" << endl;
         return;
     }
 
@@ -70,15 +70,15 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
 
         bool codigoDuplicado = false;
         vector<pair<Plato, unsigned int>> platosActuales = pe.getPlatosPedidos();
-        for(const auto& par : platosActuales){
-            if(par.first.getCodigo() == codigo){
+        for(const auto& par : platosActuales){ 
+            if(par.first.getCodigo() == codigo){  //busqueda de platos por codigo en dentro del vector
                 codigoDuplicado = true;
                 break;
             }
         }
 
         if(codigoDuplicado){
-            cout << "Este plato ya fue agregado al pedido!!!" << endl;
+            cout << "Este plato ya fue agregado al pedido!!" << endl;
             i--;
             continue;
         }
@@ -125,7 +125,7 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
         if(agregar){
         	pe.agregarPlato(*p, cantidad);
             p->setCantidad(p->getCantidad() - cantidad);
-            cout << "Plato (" << p->getNombre() << ") agregado al pedido.\n";
+            cout << "Plato (" << p->getNombre() << ") agregado al pedido..." << endl;
         }
         
         cantidadValida = false;
@@ -134,7 +134,7 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
 
     if(pe.getTotal() == 0){
     	cout << endl;
-        cout << "No se agrego ningun plato. Pedido cancelado." << endl;
+        cout << "No se agrego ningun plato. Pedido cancelado..." << endl;
         return;
     }
 
@@ -150,10 +150,10 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
 
     contador++;
     cout << endl;
-    cout << "Pedido agregado exitosamente a la cola!!!" << endl;     
+    cout << "Pedido agregado exitosamente a la cola!!" << endl;     
 }
 
-void ColaPedidos::agregarPedido(const Pedido& p){
+void ColaPedidos::agregarPedido(const Pedido& p){ //Ingreso por el fondo para restaurar pedido
 	NodoPedido* nuevo = new NodoPedido(p);
 	
 	if(estaVacia()){
@@ -168,12 +168,7 @@ void ColaPedidos::agregarPedido(const Pedido& p){
 	cout << "Pedido #" << p.getNumeroPedido() << " de " << p.getCliente() << " fue restaurado a la cola" << endl;
 }
 
-Pedido ColaPedidos::atenderPedido(){
-	if(estaVacia()){
-		cout << "No hay pedidos por atender " << endl;
-		return Pedido();
-	}
-	
+Pedido ColaPedidos::atenderPedido(){ //atencion o eliminacion por el frente
     NodoPedido* temp = front;
     Pedido pedidoAtendido = temp->dato;
     cout << "----- Atendiendo pedido #" << temp->dato.getNumeroPedido() << " -----" << endl;
@@ -192,9 +187,9 @@ Pedido ColaPedidos::atenderPedido(){
     return pedidoAtendido;
 }
 
-bool ColaPedidos::cancelarPedido(NombreCliente cliente){
+bool ColaPedidos::cancelarPedido(NombreCliente cliente){ //Elimina pedido
     if(estaVacia()){
-        cout << "No hay pedidos en la cola" << endl;
+        cout << "No hay pedidos en la cola!!" << endl;
         return false;
     }
 
@@ -225,15 +220,15 @@ bool ColaPedidos::cancelarPedido(NombreCliente cliente){
                 }
             }
 
-            if(actual == front && actual == rear){
+            if(actual == front && actual == rear){ //Elimina cnodo unico de la cola
                 front = rear = nullptr;
-            }else if (actual == front){
+            }else if(actual == front){ //Elimina nodo que esta al frente
                 front = front->siguiente;
                 front->anterior = nullptr;
-            }else if (actual == rear){
+            }else if(actual == rear){ //elimina nodo que esta al final
                 rear = rear->anterior;
                 rear->siguiente = nullptr;
-            }else{
+            }else{ //Elimina el nodo que esta en el medio
                 actual->anterior->siguiente = actual->siguiente;
                 actual->siguiente->anterior = actual->anterior;
             }
@@ -257,22 +252,21 @@ bool ColaPedidos::cancelarPedido(NombreCliente cliente){
 
 void ColaPedidos::mostrarPedidos() const{
     if(estaVacia()){
-        cout << "No hay pedidos en la cola." << endl;
+        cout << "No hay pedidos en la cola!!" << endl;
         return;
     }
 
-    cout << "----- Lista de pedidos en cola -----" << endl;
     NodoPedido* actual = front;
     while(actual){
         actual->dato.mostrarPedido();
-        cout << "--------------------------------" << endl;
+        cout << "---------------------------------------" << endl;
         actual = actual->siguiente;
     }
     calcularIngresosEsperados();
     cout << endl;
 }
 
-float ColaPedidos::calcularIngresosEsperados() const{
+float ColaPedidos::calcularIngresosEsperados() const{ //usa sobrecarga de operador
 
     Pedido acumulador;
     NodoPedido* aux = front;

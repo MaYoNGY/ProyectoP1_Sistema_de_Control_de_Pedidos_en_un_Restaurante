@@ -25,6 +25,7 @@ class MenuRestaurante{
 		
 		Validacion v;
 		
+		//funcion recursiva para sumar la cantidad de platos que son igual en categoria
 		int contarCategoriaRecursivo(NodoDoble* nodo, CategoriaPlato categoriaBuscada) {
 	    if (nodo == nullptr) {
 	        return 0;

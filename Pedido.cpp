@@ -42,7 +42,7 @@ vector<pair<Plato, unsigned int>> Pedido::getPlatosPedidos() const{
 	return platosPedidos;
 }
 
-void Pedido::agregarPlato(Plato& plato, CantidadPlatosPedidos cantidad){
+void Pedido::agregarPlato(Plato& plato, CantidadPlatosPedidos cantidad){ //guarda platos desde el ultimo
     if(cantidad == 0) return;
 
     platosPedidos.push_back({plato, cantidad});
@@ -69,7 +69,8 @@ void Pedido::mostrarPedido() const{
     cout << "Total a pagar: $" << total << endl;
 }
 
-float Pedido::operator+(const Pedido& otro) const{
+
+float Pedido::operator+(const Pedido& otro) const{ //sobre carga de operador para calcular valores esperados de los pedidos
     return this->total + otro.total;
 }
 

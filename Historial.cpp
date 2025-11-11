@@ -17,16 +17,16 @@ bool Historial::pilaVacia(){
 	return tope == nullptr;
 }
 
-void Historial::apilarPedido(Pedido p){
+void Historial::apilarPedido(Pedido p){ //primero en ingresar
 	NodoPila* nuevo = new NodoPila(p);
 	nuevo->siguiente = tope;
 	tope = nuevo;
 	cout << "Pedido de " << p.getCliente() << " agregado al historial" << endl;	 
 }
 
-Pedido Historial::desapilarPedido(){
+Pedido Historial::desapilarPedido(){ //primero en salir
 	if(pilaVacia()){
-		cout << "Historial vacio" << endl;
+		cout << "Historial vacio!!" << endl;
 		return Pedido();
 	}else{
 		NodoPila* temp = tope;
@@ -40,11 +40,10 @@ Pedido Historial::desapilarPedido(){
 
 void Historial::mostrarHistorial(){
 	if(pilaVacia()){
-		cout << "Historial vacio" << endl;
+		cout << "Historial vacio!!" << endl;
 		return;
 	}
 	cout << endl;
-	cout << "----- Historial de pedidos entregados -----" << endl;
 	NodoPila* aux = tope;
 	while(aux != nullptr){
 		aux->dato.mostrarPedido();
@@ -53,9 +52,9 @@ void Historial::mostrarHistorial(){
 	}
 }
 
-double Historial::calcularIngresosRecursivo(){
+double Historial::calcularIngresosRecursivo(){ //funcion que usa funcion recursiva
     if(pilaVacia()){
-        cout << "No hay pedidos entregados" << endl;
+        cout << "No hay pedidos entregados!!" << endl;
         return 0;
     }
 
@@ -110,7 +109,7 @@ void Historial::cargarHistorial(const string& nombreArchivo) {
 
     NodoPila* pilaTemp = nullptr;
 
-    for (int i = 0; i < contador; i++) {
+    for (int i = 0; i < contador; i++) { //pedidos temporalmente invertidos
         Pedido p;
         p.cargarDesdeArchivo(archivo);
 
@@ -120,7 +119,7 @@ void Historial::cargarHistorial(const string& nombreArchivo) {
     }
 
 
-    while (pilaTemp != nullptr) {
+    while (pilaTemp != nullptr) { //carga en el orden correcto de la pila
         NodoPila* temp = pilaTemp;
         pilaTemp = pilaTemp->siguiente;
 

@@ -80,10 +80,11 @@ void Plato::mostrarPlato(){
 	cout << "Categoria: " << categoria << endl;
 	cout << "Cantidad: " << cantidad << endl;
 	cout << "Disponible: " << (disponible ? "Si" : "No") << endl;
-	cout << "--------------------------------" << endl;
+	cout << "---------------------------------" << endl;
 	cout << endl;
 }
 
+//comparacion de precios de dos platos
 bool operator>(const Plato& a, const Plato& b){
     return a.precio > b.precio;
 }
