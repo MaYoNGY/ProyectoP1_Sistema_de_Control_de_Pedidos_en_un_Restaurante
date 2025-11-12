@@ -87,7 +87,7 @@ float Validacion::pedirPrecio(){
                     precio.pop_back();
                     cout << "\b \b";
                 }
-            }else if(c >= '0' && c <= '9'){
+            }else if((c >= '0' && c <= '9') && (precio.length() < 5)){
                 precio += c;
                 cout << c;
             }else if(c == '.' && !tienePunto && !precio.empty()){
@@ -155,7 +155,7 @@ unsigned int Validacion::pedirCantidadPlato(){
                     cantidad.pop_back();
                     cout << "\b \b";
                 }
-            }else if(c >= '0' && c <= '9') {
+            }else if((c >= '0' && c <= '9') && (cantidad.length() < 3)) {
                 cantidad += c;
                 cout << c;
             }
@@ -219,7 +219,7 @@ unsigned int Validacion::pedirCanTipoPlato(){
                     cantidad.pop_back();
                     cout << "\b \b";
                 }
-            }else if(c >= '0' && c <= '9'){
+            }else if((c >= '0' && c <= '9') && (cantidad.length() < 3)){
                 cantidad += c;
                 cout << c;
             }
@@ -268,7 +268,7 @@ unsigned int Validacion::pedirOpc(){
                     opc.pop_back();
                     cout << "\b \b";
                 }
-            }else if(c >= '0' && c <= '9') {
+            }else if((c >= '0' && c <= '9') && (opc.length() < 1)) {
                 opc += c;
                 cout << c;
             }

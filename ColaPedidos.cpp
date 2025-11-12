@@ -55,14 +55,21 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
 	m->mostrarMenu();
 	
     cout << "Creando pedido para " << cliente << endl;
-
+    
     unsigned int n;
-    n = Validacion::pedirCanTipoPlato();
 
-    if(n <= 0){
-        cout << "Debe ingresar al menos un tipo de plato!!" << endl;
-        return;
-    }
+    unsigned int totalTiposPlatos = m->getCantidadTiposPlatos();
+	n = Validacion::pedirCanTipoPlato();
+
+	if(n <= 0){
+	    cout << "Debe ingresar al menos un tipo de plato!!" << endl;
+	    return;
+	}
+
+	if(n > totalTiposPlatos){
+	    cout << "Solo hay " << totalTiposPlatos << " tipos de platos disponibles en el menu!!" << endl;
+	    return;
+	}	
 
     Pedido pe(numPedidoActual++, cliente);
 

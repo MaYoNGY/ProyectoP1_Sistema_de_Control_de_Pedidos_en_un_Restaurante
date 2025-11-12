@@ -254,6 +254,16 @@ void MenuRestaurante::compararPrecios(){ //comparacion con sobrecarga de operado
     }
 }
 
+unsigned int MenuRestaurante::getCantidadTiposPlatos() const{ //funcion para saber cuantos platos hay en el menu
+    unsigned int contador = 0;
+    NodoDoble* actual = cabeza;
+    while(actual != nullptr){
+        contador++;
+        actual = actual->siguiente;
+    }
+    return contador;
+}
+
 void MenuRestaurante::guardarMenu(const string& nombreArchivo){
     ofstream archivo(nombreArchivo);
     if(!archivo){
@@ -317,5 +327,6 @@ void MenuRestaurante::cargarMenu(const string& nombreArchivo){
     archivo.close();
     cout << "Menu cargado exitosamente desde (" << nombreArchivo << ")." << endl;
 }
+
 
 

@@ -51,6 +51,7 @@ class MenuRestaurante{
 		void mostrarMenu();
 		void contarPlatosPorCategoria(CategoriaPlato categoria);
 		void compararPrecios();
+		unsigned int getCantidadTiposPlatos() const;
 		
 		void guardarMenu(const string& nombreArchivo);
 		void cargarMenu(const string& nombreArchivo);

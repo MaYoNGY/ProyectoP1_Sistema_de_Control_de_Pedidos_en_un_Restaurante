@@ -233,7 +233,7 @@ void MenuSistema::mostrarMenuSistema(){
 		cout << "| SISTEMA DE CONTROL DE PEDIDOS-RESTAURANTE |" << endl;
 		cout << "=============================================" << endl;
 		cout << "|  1. Gestion del menu                      |" << endl;
-		cout << "|  2. Gesition de pedidos                   |" << endl;
+		cout << "|  2. Gestion de pedidos                    |" << endl;
 		cout << "|  3. Historial de entregas                 |" << endl;
 		cout << "|  4. Salir del programa                    |" << endl;
 		cout << "=============================================" << endl;
