@@ -29,14 +29,14 @@ void MenuRestaurante::registrarPlato(){ //Insercion desde el inicio
 	bool codigoRepetido;
     
     cout << endl;
-	nombre = v.pedirNombrePlato();
+	nombre = Validacion::pedirNombrePlato();
     
     while(actual){
         if(actual->dato.getNombre() == nombre){
             cout << endl;
             cout << "El plato ya existe en el menu. Actualizando cantidad..." << endl;
 
-            cantidad = v.pedirCantidadPlato();
+            cantidad = Validacion::pedirCantidadPlato();
 
             Plato adicional(nombre, actual->dato.getCodigo(), actual->dato.getPrecio(), actual->dato.getCategoria(), actual->dato.getCantidad() + cantidad);
             actual->dato = adicional;
@@ -49,7 +49,7 @@ void MenuRestaurante::registrarPlato(){ //Insercion desde el inicio
     do{
 	    codigoRepetido = false;
 	
-	    codigo = v.pedirCodigo();
+	    codigo = Validacion::pedirCodigo();
 	
 	    NodoDoble* actual = cabeza;
 	    while (actual) {
@@ -62,11 +62,11 @@ void MenuRestaurante::registrarPlato(){ //Insercion desde el inicio
 	    }
 	}while(codigoRepetido);
     	
-	precio = v.pedirPrecio();
+	precio = Validacion::pedirPrecio();
 	
-	categoria = v.pedirCategoria();
+	categoria = Validacion::pedirCategoria();
 
-    cantidad = v.pedirCantidadPlato();
+    cantidad = Validacion::pedirCantidadPlato();
 
     Plato p(nombre, codigo, precio, categoria, cantidad);
     
@@ -92,7 +92,7 @@ NodoDoble* MenuRestaurante::buscarPlato(){ //Busqueda desde el inicio
     NombrePlato nombre;
     
     cout << endl;
-	nombre = v.pedirNombrePlato();
+	nombre = Validacion::pedirNombrePlato();
     
     while(actual != nullptr){
         if(actual->dato.getNombre() == nombre){
@@ -232,8 +232,8 @@ void MenuRestaurante::compararPrecios(){ //comparacion con sobrecarga de operado
         return;
     }
 	NombrePlato n1, n2;
-	n1 = v.pedirNombrePlato();
-	n2 = v.pedirNombrePlato();
+	n1 = Validacion::pedirNombrePlato();
+	n2 = Validacion::pedirNombrePlato();
 	
 	Plato* p1 = buscarPlatoNombre(n1);
 	Plato* p2 = buscarPlatoNombre(n2);

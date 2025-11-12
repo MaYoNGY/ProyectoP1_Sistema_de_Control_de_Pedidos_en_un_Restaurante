@@ -27,7 +27,6 @@ class ColaPedidos{
         NodoPedido* rear;
         
         MenuRestaurante* m;
-    	Validacion v;
         
         int numPedidoActual;
         int contador;

@@ -9,7 +9,6 @@ using namespace std;
 class MenuSistema{
 	private:
 		MenuRestaurante m;
-		Validacion v;
 		ColaPedidos c;
 		Historial h;
 		

@@ -7,6 +7,7 @@ using namespace std;
 class Validacion{
 	
 	public:
+		//Se usa static para no crear un objeto
 		static string pedirNombrePlato();
 		static unsigned int pedirCodigo();
 		static float pedirPrecio();

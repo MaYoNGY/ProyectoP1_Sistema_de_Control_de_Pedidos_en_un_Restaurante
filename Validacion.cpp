@@ -1,7 +1,7 @@
 #include "Validacion.h"
 #include <iostream>
 #include <conio.h>
-#include <string>
+
 using namespace std;
 
 string Validacion::pedirNombrePlato(){
@@ -12,11 +12,11 @@ string Validacion::pedirNombrePlato(){
 		nombrePlato = "";
 		char c;
 		while(true){
-			c = _getch();
-			if(c == 13){
+			c = _getch(); //Lee la tecla sin presionar enter
+			if(c == 13){ //enter
 				cout << endl;
 				break;
-			}else if(c == 8){
+			}else if(c == 8){ //backspace
 				if(!nombrePlato.empty()){
 					nombrePlato.pop_back();
 					cout << "\b \b";

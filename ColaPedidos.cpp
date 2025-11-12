@@ -54,7 +54,7 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
     cout << "Creando pedido para " << cliente << endl;
 
     unsigned int n;
-    n = v.pedirCanTipoPlato();
+    n = Validacion::pedirCanTipoPlato();
 
     if(n <= 0){
         cout << "Debe ingresar al menos un tipo de plato!!" << endl;
@@ -66,7 +66,7 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
     for(unsigned int i = 0; i < n; i++){
         
         cout << "Ingrese el codigo del plato #" << (i + 1) << endl;
-        codigo = v.pedirCodigo();
+        codigo = Validacion::pedirCodigo();
 
         bool codigoDuplicado = false;
         vector<pair<Plato, unsigned int>> platosActuales = pe.getPlatosPedidos();
@@ -92,21 +92,21 @@ void ColaPedidos::agregarPedido(NombreCliente cliente){ //Insertar en el fondo
         }
 
         do{
-            cantidad = v.pedirCantidadPlato();
+            cantidad = Validacion::pedirCantidadPlato();
 
             if(cantidad > p->getCantidad()){
                 cout << "Solo hay " << p->getCantidad() << " disponibles" << endl;
 
                 char opcion;
                 cout << "Desea pedir esa cantidad maxima disponible (S/N)? ";
-                opcion = v.pedirConfirmacion();
+                opcion = Validacion::pedirConfirmacion();
 
                 if(opcion == 'S' || opcion == 's'){
                     cantidad = p->getCantidad();
                     cantidadValida = true;
                 }else{
                     cout << "Desea ingresar otra cantidad (S/N)? ";
-                    opcion = v.pedirConfirmacion();
+                    opcion = Validacion::pedirConfirmacion();
 
                     if(opcion == 'S' || opcion == 's'){
                         cantidadValida = false;
@@ -203,7 +203,7 @@ bool ColaPedidos::cancelarPedido(NombreCliente cliente){ //Elimina pedido
             cout << endl;
             cout << "Pedido del cliente (" << cliente << ") encontrado, desea cancelarlo? (S/N): ";
             char opcion;
-            opcion = v.pedirConfirmacion();
+            opcion = Validacion::pedirConfirmacion();
 
             if(opcion != 'S' && opcion != 's'){
                 cout << "Cancelacion abortada por el usuario" << endl;

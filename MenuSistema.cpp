@@ -4,7 +4,7 @@
 #include <stdlib.h>
 using namespace std;
 
-MenuSistema::MenuSistema(): m(), c(&m), v(), h(){
+MenuSistema::MenuSistema(): m(), c(&m), h(){
 	cargarDatos();
 }
 
@@ -47,7 +47,7 @@ void MenuSistema::mostrarMenuRestaurante(){
 		cout << "|  7. Comparar precios                      |" << endl;
 		cout << "|  8. Regresar                              |" << endl;
 		cout << "=============================================" << endl;
-		opcMR = v.pedirOpc();
+		opcMR = Validacion::pedirOpc();
 		
 		system("cls");
 		switch(opcMR){
@@ -85,7 +85,7 @@ void MenuSistema::mostrarMenuRestaurante(){
 			case 6:{
 				cout << "-------- Busqueda por categoria --------" << endl;
 				CategoriaPlato categoria;
-				categoria = v.pedirCategoria();
+				categoria = Validacion::pedirCategoria();
 				m.contarPlatosPorCategoria(categoria);
 				system("pause");
 				break;
@@ -125,14 +125,14 @@ void MenuSistema::mostrarMenuPedidos(){
 		cout << "|  4. Cancelar pedido                       |" << endl;
 		cout << "|  5. Regresar                              |" << endl;
 		cout << "=============================================" << endl;
-		opcMP = v.pedirOpc();
+		opcMP = Validacion::pedirOpc();
 		system("cls");
 		
 		switch(opcMP){
 			case 1:{
 				cout << "---------- Registro de pedido ----------" << endl;
 				NombreCliente cliente;
-				cliente = v.pedirNombreCliente();
+				cliente = Validacion::pedirNombreCliente();
 				c.agregarPedido(cliente);
 				system("pause");
 				break;
@@ -159,7 +159,7 @@ void MenuSistema::mostrarMenuPedidos(){
 			case 4:{
 				cout << "-------- Cancelacion de pedido --------" << endl;
 				NombreCliente cliente;
-				cliente = v.pedirNombreCliente();
+				cliente = Validacion::pedirNombreCliente();
 				c.cancelarPedido(cliente);
 				system("pause");
 				break;
@@ -190,7 +190,7 @@ void MenuSistema::mostrarMenuHistorial(){
 		cout << "|  2. Desasher ultima entrega               |" << endl;
 		cout << "|  3. Regresar                              |" << endl;
 		cout << "=============================================" << endl;
-		opcMH = v.pedirOpc();
+		opcMH = Validacion::pedirOpc();
 		system("cls");
 		
 		switch(opcMH){
@@ -237,7 +237,7 @@ void MenuSistema::mostrarMenuSistema(){
 		cout << "|  3. Historial de entregas                 |" << endl;
 		cout << "|  4. Salir del programa                    |" << endl;
 		cout << "=============================================" << endl;
-		opcMs = v.pedirOpc();
+		opcMs = Validacion::pedirOpc();
 		system("cls");
 		
 		switch(opcMs){
