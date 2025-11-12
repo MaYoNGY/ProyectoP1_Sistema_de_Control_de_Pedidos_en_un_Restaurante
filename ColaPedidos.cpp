@@ -21,8 +21,11 @@ ColaPedidos::ColaPedidos(MenuRestaurante* menu){
 
 ColaPedidos::~ColaPedidos(){
     while (!estaVacia()){
-        atenderPedido();
+        NodoPedido* temp = front;
+        front = front->siguiente;
+        delete temp;
     }
+    rear = nullptr;
 }
 
 void ColaPedidos::setNumPedidoActual(int num){

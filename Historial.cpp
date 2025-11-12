@@ -9,7 +9,9 @@ Historial::Historial(){
 
 Historial::~Historial(){
     while(!pilaVacia()){
-        desapilarPedido();
+        NodoPila* temp = tope;
+        tope = tope->siguiente;
+        delete temp;
     }
 }
 

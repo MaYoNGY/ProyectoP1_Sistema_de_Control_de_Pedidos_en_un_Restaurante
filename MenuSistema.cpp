@@ -187,7 +187,7 @@ void MenuSistema::mostrarMenuHistorial(){
 		cout << "|            HISTORIAL DE ENTREGAS          |" << endl;
 		cout << "=============================================" << endl;
 		cout << "|  1. Mostrar Historial                     |" << endl;
-		cout << "|  2. Desasher ultima entrega               |" << endl;
+		cout << "|  2. Deshacer ultima entrega               |" << endl;
 		cout << "|  3. Regresar                              |" << endl;
 		cout << "=============================================" << endl;
 		opcMH = Validacion::pedirOpc();
